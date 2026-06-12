@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://racingcarslinares.cl/sitemap.xml

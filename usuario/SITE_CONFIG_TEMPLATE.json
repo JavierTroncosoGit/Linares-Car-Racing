@@ -1,0 +1,402 @@
+{
+  "_meta": {
+    "_note": "SOLO REFERENCIA DE FORMATO — Ver ia/config-schema.md. La IA genera site.config.json desde CERO para cada proyecto usando el contexto del cliente. NUNCA copiar este archivo.",
+    "_purpose": "Este archivo muestra TODAS las posibilidades del config v3.1 (landing + ecommerce). El archivo real estará en la raíz del proyecto.",
+    "version": "3.1.0",
+    "client": "Ejemplo ficticio — Linares Racing Cars",
+    "type": "landing+ecommerce",
+    "project": "Landing page + catálogo e-commerce con carrito y pedido por WhatsApp"
+  },
+  "brand": {
+    "name": "Linares Racing Cars",
+    "logo": {
+      "src": "/images/brand/logo.svg",
+      "alt": "Linares Racing Cars logo",
+      "width": 150,
+      "height": 44
+    },
+    "favicon": "/favicon.ico"
+  },
+  "colors": {
+    "_guide": {
+      "_uso": "Cambia el valor hex del token que quieras. Guarda el archivo y usa el prompt 'Actualizar desde Config' para que el cambio se aplique al código.",
+      "primary": "Color de marca — botones CTA principales, links activos",
+      "primaryDark": "Versión oscura del primario — hover de botones",
+      "accent": "Color de detalle — badges, precios destacados, carrito",
+      "bgPrimary": "Fondo principal de la página",
+      "bgSecondary": "Fondo alternado — secciones intercaladas para ritmo visual",
+      "textPrimary": "Texto principal — títulos, párrafos importantes",
+      "textSecondary": "Texto secundario — subtítulos, labels, descripciones",
+      "success": "Confirmaciones — agregado al carrito, pedido enviado",
+      "danger": "Errores — formularios, alertas"
+    },
+    "primary": "#dc2626",
+    "primaryDark": "#991b1b",
+    "accent": "#f59e0b",
+    "bgPrimary": "#0a0a0a",
+    "bgSecondary": "#171717",
+    "textPrimary": "#f5f5f5",
+    "textSecondary": "#a3a3a3",
+    "success": "#22c55e",
+    "danger": "#ef4444"
+  },
+  "fonts": {
+    "_guide": "Nombres exactos de Google Fonts.",
+    "heading": "Rajdhani",
+    "body": "Inter"
+  },
+  "seo": {
+    "_guide": "Title y description son los que aparecen en Google.",
+    "title": "Linares Racing Cars — Taller Mecánico y Equipamiento Automotriz",
+    "title_max": "60 caracteres",
+    "description": "Taller mecánico especializado y tienda de equipamiento automotriz profesional. Servicio técnico, repuestos y herramientas de marcas premium.",
+    "description_max": "155 caracteres",
+    "ogTitle": "Linares Racing Cars — Tu Taller de Confianza",
+    "ogDescription": "Mecánica rápida, diagnóstico electrónico y venta de equipamiento automotriz profesional. Contáctanos por WhatsApp.",
+    "ogImage": "/images/brand/og-image.jpg",
+    "canonicalUrl": "https://linaresracingcars.cl",
+    "locale": "es_CL"
+  },
+  "contact": {
+    "_guide": "WhatsApp es un array — puede haber múltiples números.",
+    "whatsapp": [
+      {
+        "number": "56949340772",
+        "label": "Ventas y Consultas",
+        "message": "Hola, quisiera información sobre los servicios de Linares Racing Cars."
+      },
+      {
+        "number": "56967014233",
+        "label": "Taller y Servicios",
+        "message": "Hola, quisiera agendar un servicio en Linares Racing Cars."
+      }
+    ],
+    "email": "linaresracingcars@gmail.com",
+    "social": {
+      "instagram": "https://www.instagram.com/linaresracingcars"
+    }
+  },
+  "animations": {
+    "_guide": "1 = solo hovers. 2 = scroll reveals con Framer Motion. 3 = efectos premium con GSAP.",
+    "level": 2
+  },
+  "store": {
+    "_guide": "Configuración del catálogo de productos y carrito de compras.",
+    "enabled": true,
+    "currency": "CLP",
+    "currencySymbol": "$",
+    "sheetsConfig": {
+      "_guide": "URL del Google Sheet publicado como CSV. Reemplazar con la URL real.",
+      "productsSheetUrl": "https://docs.google.com/spreadsheets/d/XXXXX/pub?gid=0&single=true&output=csv",
+      "revalidateSeconds": 3600
+    },
+    "categories": [
+      {
+        "id": "equipos-pintura",
+        "name": "Equipos de Pintura",
+        "slug": "equipos-pintura",
+        "icon": "paint-bucket"
+      },
+      {
+        "id": "secado-curado",
+        "name": "Secado y Curado",
+        "slug": "secado-curado",
+        "icon": "sun"
+      },
+      {
+        "id": "iluminacion-color",
+        "name": "Iluminación y Color",
+        "slug": "iluminacion-color",
+        "icon": "lightbulb"
+      },
+      {
+        "id": "diagnostico",
+        "name": "Diagnóstico Automotriz",
+        "slug": "diagnostico",
+        "icon": "scan-line"
+      },
+      {
+        "id": "equipos-taller",
+        "name": "Equipos de Taller",
+        "slug": "equipos-taller",
+        "icon": "wrench"
+      }
+    ],
+    "featuredSection": {
+      "_guide": "Sección de productos destacados en la landing. Se filtra por columna 'featured' = TRUE en el Sheet.",
+      "enabled": true,
+      "title": "Productos Destacados del Mes",
+      "subtitle": "Equipamiento profesional seleccionado para tu taller",
+      "maxProducts": 8
+    },
+    "productDetail": {
+      "_guide": "Configuración de la página de detalle de producto.",
+      "showComplementary": true,
+      "maxComplementary": 4,
+      "showBrand": true,
+      "showSku": true
+    },
+    "cart": {
+      "enabled": true,
+      "orderMethod": "both",
+      "_orderMethodOptions": "whatsapp | form | both",
+      "whatsappOrderNumber": "56949340772",
+      "whatsappOrderMessage": "Hola, quiero hacer un pedido en Linares Racing Cars:\n\n{orderDetails}\n\nTotal: {total}\n\nMis datos:\nNombre: \nTeléfono: ",
+      "formDestinationEmail": "linaresracingcars@gmail.com"
+    },
+    "shipping": {
+      "type": "pickup",
+      "_typeOptions": "pickup | delivery | both",
+      "pickupNote": "Retiro en nuestro taller. Te avisamos cuando esté listo."
+    }
+  },
+  "pages": {
+    "landing": {
+      "slug": "/",
+      "sections": [
+        {
+          "_note": "NAVBAR — Menú superior con links internos + link al catálogo + ícono de carrito.",
+          "id": "navbar",
+          "type": "navbar",
+          "links": [
+            { "text": "Servicios", "href": "#servicios" },
+            { "text": "Catálogo", "href": "/catalogo" },
+            { "text": "Proceso", "href": "#proceso" },
+            { "text": "FAQ", "href": "#faq" },
+            { "text": "Contacto", "href": "#contacto" }
+          ],
+          "cta": { "text": "Cotizar ahora", "href": "#contacto" },
+          "showCart": true
+        },
+        {
+          "_note": "HERO — Primera sección. headline es el título principal (H1).",
+          "id": "hero",
+          "type": "hero",
+          "badge": "🏎️ Taller Mecánico + Equipamiento Profesional",
+          "headline": "Rendimiento y precisión para tu vehículo",
+          "subheadline": "Servicio técnico especializado y venta de equipamiento automotriz de marcas premium. Diagnóstico electrónico, mantenimiento y más.",
+          "ctas": [
+            { "text": "Ver Catálogo", "href": "/catalogo", "variant": "primary" },
+            { "text": "Agendar Servicio", "href": "#contacto", "variant": "secondary" }
+          ],
+          "media": {
+            "type": "image",
+            "src": "/images/hero/hero-main.webp",
+            "alt": "Taller Linares Racing Cars"
+          }
+        },
+        {
+          "_note": "STATS — Barra de números/logros.",
+          "id": "numeros",
+          "type": "stats",
+          "items": [
+            { "value": "500+", "label": "Clientes satisfechos", "icon": "users" },
+            { "value": "20+", "label": "Servicios disponibles", "icon": "wrench" },
+            { "value": "5+", "label": "Marcas premium", "icon": "trophy" },
+            { "value": "100%", "label": "Compromiso", "icon": "shield" }
+          ]
+        },
+        {
+          "_note": "SERVICES GRID — Servicios organizados por categoría.",
+          "id": "servicios",
+          "type": "services-grid",
+          "sectionLabel": "Nuestros Servicios",
+          "headline": "Todo lo que tu vehículo necesita en un solo lugar",
+          "subheadline": "Mecánica rápida, diagnóstico electrónico y mantenimiento preventivo con equipos de última generación.",
+          "columns": 3,
+          "categories": [
+            {
+              "name": "Diagnóstico y Electrónica",
+              "icon": "scan-line",
+              "services": [
+                { "name": "Escáner y Lectura de Códigos DTC", "description": "Diagnóstico electrónico con borrado de códigos de falla." },
+                { "name": "Cambio de Sensores", "description": "Reemplazo de sensores del motor y sistema electrónico." }
+              ]
+            },
+            {
+              "name": "Motor y Distribución",
+              "icon": "cog",
+              "services": [
+                { "name": "Cambio de Correa de Distribución", "description": "Reemplazo preventivo de correa y tensor." },
+                { "name": "Cambio de Bujías Bosch", "description": "Bujías originales Bosch para mejor rendimiento." },
+                { "name": "Limpieza Cuerpo de Aceleración", "description": "Mejora respuesta y consumo de combustible." },
+                { "name": "Cambio Termostato", "description": "Regulación óptima de temperatura del motor." },
+                { "name": "Cambio Empaquetadura Tapa de Válvulas", "description": "Sellado correcto para evitar fugas de aceite." }
+              ]
+            },
+            {
+              "name": "Frenos",
+              "icon": "disc",
+              "services": [
+                { "name": "Cambio de Pastillas y Discos", "description": "Frenado seguro con repuestos de calidad." },
+                { "name": "Limpieza y Regulación Freno Tambor", "description": "Mantenimiento del sistema de freno trasero." }
+              ]
+            },
+            {
+              "name": "Suspensión y Dirección",
+              "icon": "move-vertical",
+              "services": [
+                { "name": "Cambio de Amortiguadores", "description": "Mejor estabilidad y confort de manejo." },
+                { "name": "Cambio Bandejas Inferiores y Superiores", "description": "Geometría de suspensión correcta." },
+                { "name": "Cambio Punta de Dirección", "description": "Precisión en la dirección del vehículo." },
+                { "name": "Revisión Tren Delantero", "description": "Inspección completa de componentes de suspensión." }
+              ]
+            },
+            {
+              "name": "Mantenimiento",
+              "icon": "filter",
+              "services": [
+                { "name": "Cambio de Aceite", "description": "Aceites de primera calidad. Venta incluida." },
+                { "name": "Cambio de Filtros", "description": "Filtros de petróleo, aire, cabina y aceite." },
+                { "name": "Cambio de Refrigerante y Radiador", "description": "Sistema de enfriamiento en óptimas condiciones." },
+                { "name": "Cambio de Plumillas", "description": "Delanteras y traseras para mejor visibilidad." }
+              ]
+            },
+            {
+              "name": "Transmisión",
+              "icon": "cog",
+              "services": [
+                { "name": "Cambio Kit de Embrague", "description": "Reemplazo completo del kit de embrague." },
+                { "name": "Cambio Correas de Accesorios", "description": "Correas de alternador, AC y dirección." }
+              ]
+            },
+            {
+              "name": "Eléctrico e Iluminación",
+              "icon": "lightbulb",
+              "services": [
+                { "name": "Cambio de Ampolletas", "description": "Ampolletas para todo tipo de vehículo. Venta incluida." },
+                { "name": "Reemplazo de Batería", "description": "Baterías de calidad con instalación." }
+              ]
+            }
+          ]
+        },
+        {
+          "_note": "FEATURED PRODUCTS — Productos destacados del mes. Datos del Google Sheet, filtro featured=TRUE.",
+          "id": "productos-destacados",
+          "type": "featured-products",
+          "sectionLabel": "Productos",
+          "headline": "Productos Destacados del Mes",
+          "subheadline": "Equipamiento profesional seleccionado para tu taller",
+          "ctaCatalog": { "text": "Ver catálogo completo", "href": "/catalogo" }
+        },
+        {
+          "_note": "STEPS — Cómo funciona el proceso.",
+          "id": "proceso",
+          "type": "steps",
+          "sectionLabel": "Cómo funciona",
+          "headline": "Tu servicio, sin complicaciones",
+          "style": "numbered",
+          "steps": [
+            {
+              "number": "01",
+              "title": "Contáctanos",
+              "body": "Escríbenos por WhatsApp o llena el formulario. Te respondemos en minutos."
+            },
+            {
+              "number": "02",
+              "title": "Diagnóstico",
+              "body": "Evaluamos tu vehículo con escáner profesional y te damos un presupuesto claro."
+            },
+            {
+              "number": "03",
+              "title": "Servicio",
+              "body": "Realizamos el trabajo con repuestos de calidad y equipos de última generación."
+            },
+            {
+              "number": "04",
+              "title": "Entrega",
+              "body": "Tu vehículo listo. Sin sorpresas, sin costos ocultos."
+            }
+          ]
+        },
+        {
+          "_note": "FAQ — Preguntas frecuentes.",
+          "id": "faq",
+          "type": "faq",
+          "sectionLabel": "Preguntas frecuentes",
+          "headline": "Resuelve tus dudas",
+          "schema": true,
+          "items": [
+            {
+              "question": "¿Qué marcas de productos venden?",
+              "answer": "Trabajamos con marcas premium como SATA, BESTE, Scangrip y THINKCAR. Todos nuestros productos son originales con garantía."
+            },
+            {
+              "question": "¿Puedo comprar productos sin agendar un servicio?",
+              "answer": "¡Claro! Nuestro catálogo está disponible para compra directa. Puedes agregar productos al carrito y hacer tu pedido por WhatsApp o formulario."
+            },
+            {
+              "question": "¿Hacen diagnóstico sin costo?",
+              "answer": "El diagnóstico con escáner tiene un costo que se descuenta del servicio si decides realizarlo con nosotros."
+            },
+            {
+              "question": "¿Cuánto demora un servicio de mecánica rápida?",
+              "answer": "Dependiendo del servicio, desde 30 minutos hasta unas horas. Te damos un estimado al momento del diagnóstico."
+            }
+          ]
+        },
+        {
+          "_note": "CTA BANNER — Llamada a la acción.",
+          "id": "cta",
+          "type": "cta-banner",
+          "headline": "¿Listo para darle lo mejor a tu vehículo?",
+          "subheadline": "Contáctanos hoy y agenda tu servicio o consulta por nuestros productos.",
+          "cta": { "text": "Contactar por WhatsApp", "href": "https://wa.me/56949340772" }
+        },
+        {
+          "_note": "CONTACT FORM — Formulario de contacto.",
+          "id": "contacto",
+          "type": "contact-form",
+          "sectionLabel": "Contacto",
+          "headline": "¿Necesitas un servicio o tienes una consulta?",
+          "subheadline": "Completa el formulario y te contactamos en minutos.",
+          "destinationEmail": "linaresracingcars@gmail.com",
+          "fields": [
+            { "id": "nombre", "type": "text", "label": "Tu nombre", "required": true },
+            { "id": "telefono", "type": "tel", "label": "Teléfono", "required": true },
+            { "id": "email", "type": "email", "label": "Email", "required": false },
+            {
+              "id": "servicio", "type": "select", "label": "¿Qué necesitas?", "required": false,
+              "options": [
+                "Mecánica Rápida",
+                "Diagnóstico Electrónico",
+                "Cambio de Frenos",
+                "Mantenimiento General",
+                "Consulta sobre Productos",
+                "Otro"
+              ]
+            },
+            { "id": "mensaje", "type": "textarea", "label": "Cuéntanos más", "required": false }
+          ],
+          "submitLabel": "Enviar consulta",
+          "successMessage": "¡Listo! Te contactaremos pronto.",
+          "errorMessage": "Hubo un problema. Escríbenos directamente por WhatsApp.",
+          "successAction": "message"
+        },
+        {
+          "_note": "FOOTER — Pie de página con links a catálogo y carrito.",
+          "id": "footer",
+          "type": "footer",
+          "tagline": "Rendimiento y precisión para tu vehículo.",
+          "links": [
+            { "text": "Política de Privacidad", "href": "/privacidad" }
+          ],
+          "navigation": [
+            { "text": "Catálogo", "href": "/catalogo" },
+            { "text": "Carrito", "href": "/carrito" }
+          ],
+          "social": {
+            "instagram": "https://www.instagram.com/linaresracingcars"
+          }
+        }
+      ]
+    },
+    "catalogo": {
+      "slug": "/catalogo",
+      "seo": {
+        "title": "Catálogo — Linares Racing Cars",
+        "description": "Equipamiento automotriz profesional: pistolas de pintura SATA, equipos de diagnóstico THINKCAR, iluminación Scangrip y más."
+      }
+    }
+  }
+}

@@ -1,0 +1,430 @@
+{
+  "_meta": {
+    "version": "3.1.0",
+    "project": "Racing Cars — Lubricentro y Accesorios",
+    "type": "landing+ecommerce"
+  },
+  "brand": {
+    "name": "Racing Cars",
+    "logo": {
+      "src": "/assets/logo-principal.png",
+      "alt": "Racing Cars Logo",
+      "width": 180,
+      "height": 60
+    },
+    "favicon": "/favicon.ico"
+  },
+  "colors": {
+    "_guide": {
+      "primary": "Color de marca — botones CTA principales, links activos",
+      "primaryDark": "Versión oscura del primario — hover de botones",
+      "accent": "Color de detalle — badges, precios destacados, carrito",
+      "bgPrimary": "Fondo principal de la página",
+      "bgSecondary": "Fondo alternado — secciones intercaladas para ritmo visual",
+      "textPrimary": "Texto principal — títulos, párrafos importantes",
+      "textSecondary": "Texto secundario — subtítulos, labels, descripciones",
+      "success": "Confirmaciones — agregado al carrito, pedido enviado",
+      "danger": "Errores — formularios, alertas"
+    },
+    "primary": "#E8A824",
+    "primaryDark": "#b88014",
+    "accent": "#dc2626",
+    "bgPrimary": "#0a0a0a",
+    "bgSecondary": "#121212",
+    "textPrimary": "#f5f5f5",
+    "textSecondary": "#a3a3a3",
+    "success": "#22c55e",
+    "danger": "#ef4444"
+  },
+  "fonts": {
+    "heading": "Rajdhani",
+    "body": "Inter"
+  },
+  "seo": {
+    "title": "Racing Cars — Taller Mecánico, Lubricentro y Accesorios en Linares",
+    "title_max": "60 caracteres",
+    "description": "Único distribuidor oficial EMASA en el Maule. Servicios de lubricentro, diagnóstico electrónico con escáner y mecánica rápida.",
+    "description_max": "155 caracteres",
+    "ogTitle": "Racing Cars — Lubricentro y Accesorios en Linares",
+    "ogDescription": "Mecánica rápida, lubricentro y tienda de accesorios automotrices. Distribuidor exclusivo de productos EMASA en el Maule.",
+    "ogImage": "/assets/logo-principal.png",
+    "canonicalUrl": "https://racingcarslinares.cl",
+    "locale": "es_CL"
+  },
+  "contact": {
+    "whatsapp": [
+      {
+        "number": "56949340772",
+        "label": "Ventas y Consultas",
+        "message": "Hola Racing Cars, me gustaría consultar por repuestos e insumos."
+      },
+      {
+        "number": "56967014233",
+        "label": "Agendamiento Taller",
+        "message": "Hola Racing Cars, me gustaría agendar una hora para servicio técnico."
+      }
+    ],
+    "email": "linaresracingcars@gmail.com",
+    "social": {
+      "instagram": "https://www.instagram.com/linaresracingcars"
+    },
+    "schedule": {
+      "weekday": { "open": "09:00", "close": "18:00", "label": "Lunes a Viernes: 09:00 - 18:00" },
+      "saturday": { "open": "10:00", "close": "14:00", "label": "Sábado: 10:00 - 14:00" },
+      "sunday": { "open": "00:00", "close": "00:00", "label": "Domingo: Cerrado" }
+    }
+  },
+  "animations": {
+    "level": 2
+  },
+  "store": {
+    "enabled": true,
+    "currency": "CLP",
+    "currencySymbol": "$",
+    "sheetsConfig": {
+      "_guide": "URL del Google Sheet publicado como CSV. Reemplazar cuando el cliente entregue la URL real.",
+      "productsSheetUrl": "https://docs.google.com/spreadsheets/d/1TBwyclUtHs-iAxjqBKlhVYR7p_0BaKPRGaiMev7S0fY/export?format=csv",
+      "revalidateSeconds": 3600
+    },
+    "categories": [
+      {
+        "id": "aceites-lubricantes",
+        "name": "Aceites y Lubricantes",
+        "slug": "aceites-lubricantes",
+        "icon": "droplet"
+      },
+      {
+        "id": "filtros",
+        "name": "Filtros",
+        "slug": "filtros",
+        "icon": "filter"
+      },
+      {
+        "id": "bujias",
+        "name": "Bujías",
+        "slug": "bujias",
+        "icon": "zap"
+      },
+      {
+        "id": "baterias",
+        "name": "Baterías",
+        "slug": "baterias",
+        "icon": "battery"
+      },
+      {
+        "id": "refrigerantes-liquidos",
+        "name": "Refrigerantes y Líquidos",
+        "slug": "refrigerantes-liquidos",
+        "icon": "droplet"
+      },
+      {
+        "id": "ampolletas-iluminacion",
+        "name": "Ampolletas e Iluminación",
+        "slug": "ampolletas-iluminacion",
+        "icon": "lightbulb"
+      },
+      {
+        "id": "plumillas-limpiaparabrisas",
+        "name": "Plumillas y Limpiaparabrisas",
+        "slug": "plumillas-limpiaparabrisas",
+        "icon": "wrench"
+      },
+      {
+        "id": "productos-emasa",
+        "name": "Productos EMASA",
+        "slug": "productos-emasa",
+        "icon": "shield"
+      }
+    ],
+    "featuredSection": {
+      "enabled": true,
+      "title": "Productos Destacados del Mes",
+      "subtitle": "Insumos y repuestos de alta gama recomendados para tu motor",
+      "maxProducts": 8
+    },
+    "productDetail": {
+      "showComplementary": true,
+      "maxComplementary": 4,
+      "showBrand": true,
+      "showSku": true
+    },
+    "cart": {
+      "enabled": true,
+      "orderMethod": "both",
+      "whatsappOrderNumber": "56949340772",
+      "whatsappOrderMessage": "Hola Racing Cars, quiero realizar el siguiente pedido:\n\n{orderDetails}\n\nTotal estimado: {total}\n\nMis datos:\nNombre: \nVehículo/Año: ",
+      "formDestinationEmail": "linaresracingcars@gmail.com"
+    },
+    "shipping": {
+      "type": "pickup",
+      "pickupNote": "Retiro en nuestro local ubicado en Av. Presidente Ibáñez #630, Linares. Te confirmaremos cuando tu pedido esté listo para retirar."
+    }
+  },
+  "pages": {
+    "landing": {
+      "slug": "/",
+      "sections": [
+        {
+          "id": "navbar",
+          "type": "navbar",
+          "links": [
+            { "text": "Servicios", "href": "#servicios" },
+            { "text": "Destacados", "href": "#productos-destacados" },
+            { "text": "Catálogo", "href": "/catalogo" },
+            { "text": "Proceso", "href": "#proceso" },
+            { "text": "Preguntas", "href": "#faq" },
+            { "text": "Contacto", "href": "#contacto" }
+          ],
+          "cta": { "text": "Agendar Hora", "href": "#contacto" },
+          "showCart": true
+        },
+        {
+          "id": "hero",
+          "type": "hero",
+          "badge": "🏎️ Taller Mecánico + Lubricentro + Tienda de Accesorios",
+          "headline": "POTENCIA, RENDIMIENTO Y CUIDADO PARA TU VEHÍCULO",
+          "subheadline": "Lubricentro especializado y taller mecánico en Linares. Único distribuidor autorizado de productos EMASA en la Región del Maule.",
+          "ctas": [
+            { "text": "Ver Catálogo", "href": "/catalogo", "variant": "primary" },
+            { "text": "Agendar Servicio", "href": "#contacto", "variant": "secondary" }
+          ],
+          "media": {
+            "type": "image",
+            "src": "/assets/logo-principal.png",
+            "alt": "Racing Cars — Lubricentro y Accesorios"
+          }
+        },
+        {
+          "id": "stats",
+          "type": "stats",
+          "items": [
+            { "value": "20+", "label": "Servicios Técnicos", "icon": "wrench" },
+            { "value": "6+", "label": "Marcas Premium", "icon": "trophy" },
+            { "value": "Exclusivo", "label": "Distribuidor EMASA Maule", "icon": "shield" },
+            { "value": "100%", "label": "Calidad Alemana", "icon": "check-circle" }
+          ]
+        },
+        {
+          "id": "servicios",
+          "type": "services-grid",
+          "sectionLabel": "Servicios Especializados de Taller",
+          "headline": "Mantenimiento profesional y diagnóstico avanzado",
+          "subheadline": "Equipos de última generación y repuestos de marcas de confianza para tu auto o flota.",
+          "columns": 3,
+          "categories": [
+            {
+              "name": "Mecánica Rápida",
+              "icon": "wrench",
+              "services": [
+                { "name": "Mecánica rápida y reparaciones varias", "description": "Solución ágil a problemas mecánicos cotidianos." }
+              ]
+            },
+            {
+              "name": "Diagnóstico y Electrónica",
+              "icon": "scan-line",
+              "services": [
+                { "name": "Diagnóstico profesional con escáner", "description": "Lectura y borrado completo de códigos de falla DTC." },
+                { "name": "Cambio de sensores", "description": "Reemplazo preciso de sensores electrónicos automotrices." }
+              ]
+            },
+            {
+              "name": "Motor y Distribución",
+              "icon": "cog",
+              "services": [
+                { "name": "Cambio de correas de distribución y accesorios", "description": "Mantenimiento preventivo para la vida del motor." },
+                { "name": "Cambio de bujías Bosch", "description": "Bujías originales Bosch para óptimo encendido." },
+                { "name": "Limpieza del cuerpo de aceleración", "description": "Optimización de la mezcla de aire y combustible." },
+                { "name": "Cambio de termostato", "description": "Garantía de temperatura de trabajo estable." },
+                { "name": "Cambio empaquetadura tapa de válvulas", "description": "Prevención y sellado de fugas de aceite." }
+              ]
+            },
+            {
+              "name": "Frenos",
+              "icon": "disc",
+              "services": [
+                { "name": "Cambio de pastillas y discos de frenos", "description": "Repuestos de alto coeficiente de frenado." },
+                { "name": "Limpieza y regulación de freno de tambor", "description": "Ajuste del sistema trasero para frenado seguro." }
+              ]
+            },
+            {
+              "name": "Suspensión y Dirección",
+              "icon": "move-vertical",
+              "services": [
+                { "name": "Cambio de amortiguadores", "description": "Estabilidad y absorción óptima de impactos." },
+                { "name": "Cambio de bandejas superiores e inferiores", "description": "Garantía de alineación y seguridad geométrica." },
+                { "name": "Cambio de punta de dirección", "description": "Precisión y suavidad en la conducción." },
+                { "name": "Revisión e inspección de tren delantero", "description": "Evaluación detallada de componentes de suspensión." }
+              ]
+            },
+            {
+              "name": "Mantenimiento",
+              "icon": "filter",
+              "services": [
+                { "name": "Cambio de aceite de motor y transmisión", "description": "Lubricantes de marcas mundiales líderes." },
+                { "name": "Cambio de filtros", "description": "Reemplazo de filtros de aceite, aire, cabina y petróleo." },
+                { "name": "Cambio de radiador y refrigerantes", "description": "Cuidado preventivo contra sobrecalentamiento." },
+                { "name": "Cambio de plumillas limpiaparabrisas", "description": "Máxima visibilidad bajo la lluvia." }
+              ]
+            },
+            {
+              "name": "Transmisión",
+              "icon": "cog",
+              "services": [
+                { "name": "Cambio de kit de embrague", "description": "Transmisión de potencia suave y eficiente." }
+              ]
+            },
+            {
+              "name": "Eléctrico e Iluminación",
+              "icon": "lightbulb",
+              "services": [
+                { "name": "Cambio de ampolletas LED/halógenas", "description": "Iluminación óptima para conducción nocturna." },
+                { "name": "Reemplazo de baterías", "description": "Venta e instalación de baterías de alta durabilidad." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "productos-destacados",
+          "type": "featured-products",
+          "sectionLabel": "Destacados de la Tienda",
+          "headline": "Productos Destacados del Mes",
+          "subheadline": "Equipa tu auto con lubricantes, filtros y accesorios recomendados por nuestros técnicos",
+          "ctaCatalog": { "text": "Ver catálogo completo", "href": "/catalogo" }
+        },
+        {
+          "id": "proceso",
+          "type": "steps",
+          "sectionLabel": "Cómo funciona",
+          "headline": "Tu servicio en 3 simples pasos",
+          "style": "numbered",
+          "steps": [
+            {
+              "number": "01",
+              "title": "Cotiza o Reserva",
+              "body": "Selecciona tus productos en el catálogo o elige tu servicio técnico y contáctanos por WhatsApp."
+            },
+            {
+              "number": "02",
+              "title": "Confirmación Técnica",
+              "body": "Nuestros mecánicos validan la compatibilidad de los productos con tu auto y agendan tu visita."
+            },
+            {
+              "number": "03",
+              "title": "Retiro o Servicio",
+              "body": "Visita nuestro local para retirar tus compras o realizar el servicio en tiempo récord."
+            }
+          ]
+        },
+        {
+          "id": "marcas",
+          "type": "brands-grid",
+          "_note": "Custom section to display partner brands.",
+          "sectionLabel": "Marcas de Confianza",
+          "headline": "Trabajamos con los mejores del mercado",
+          "items": [
+            { "name": "Bosch", "logo": "/assets/brands/bosch.png", "note": "Líder mundial" },
+            { "name": "Mannol", "logo": "/assets/brands/mannol.png", "note": "Aceites premium" },
+            { "name": "Liqui Moly", "logo": "/assets/brands/liqui-moly.png", "note": "Máxima calidad" },
+            { "name": "Fuchs", "logo": "/assets/brands/fuchs.png", "note": "Tecnología alemana" },
+            { "name": "Shell Lubricants", "logo": "/assets/brands/shell.png", "note": "Líder global" },
+            { "name": "EMASA", "logo": "/assets/brands/emasa.png", "note": "Distribuidor exclusivo" }
+          ]
+        },
+        {
+          "id": "faq",
+          "type": "faq",
+          "sectionLabel": "Preguntas frecuentes",
+          "headline": "Resuelve tus dudas sobre nuestro servicio",
+          "schema": true,
+          "items": [
+            {
+              "question": "¿Tienen stock inmediato de todos los repuestos?",
+              "answer": "Nuestro catálogo online actúa como una vitrina de exhibición de alta calidad. Al enviar tu pedido, nuestro equipo confirma la disponibilidad en bodega de inmediato para tu retiro."
+            },
+            {
+              "question": "¿Cómo reservo una hora para un diagnóstico con escáner?",
+              "answer": "Puedes reservar directamente a través de nuestro botón de WhatsApp principal o completando el formulario al pie de página. El diagnóstico incluye lectura y borrado de códigos DTC."
+            },
+            {
+              "question": "¿Tienen despacho a domicilio de los productos del catálogo?",
+              "answer": "Actualmente operamos bajo el formato de retiro en local en Av. Presidente Ibáñez #630, Linares. Esto nos permite garantizar la entrega correcta y brindarte asesoramiento técnico directo si lo necesitas."
+            },
+            {
+              "question": "¿Qué significa que sean distribuidor autorizado de EMASA?",
+              "answer": "Significa que somos el único canal oficial autorizado en la Región del Maule para vender y respaldar sus productos automotrices de prestigio internacional, garantizando autenticidad y el mejor precio."
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "type": "cta-banner",
+          "headline": "¿TU VEHÍCULO NECESITA MANTENIMIENTO?",
+          "subheadline": "Escríbenos ahora mismo. Respondemos en minutos para coordinar tu cita o cotizar tus repuestos.",
+          "cta": { "text": "Chatear por WhatsApp", "href": "https://wa.me/56949340772" }
+        },
+        {
+          "id": "contacto",
+          "type": "contact-form",
+          "sectionLabel": "Contacto",
+          "headline": "¿Necesitas un servicio o tienes una consulta?",
+          "subheadline": "Completa el formulario y te contactamos en minutos.",
+          "destinationEmail": "linaresracingcars@gmail.com",
+          "fields": [
+            { "id": "nombre", "type": "text", "label": "Tu Nombre Completo", "required": true },
+            { "id": "telefono", "type": "tel", "label": "Teléfono de Contacto", "required": true },
+            { "id": "email", "type": "email", "label": "Correo Electrónico", "required": false },
+            {
+              "id": "servicio", "type": "select", "label": "¿Qué servicio necesitas?", "required": false,
+              "options": [
+                "Mecánica Rápida",
+                "Diagnóstico Electrónico",
+                "Motor y Distribución",
+                "Frenos",
+                "Suspensión y Dirección",
+                "Mantenimiento General / Cambio Aceite",
+                "Consulta de Productos del Catálogo",
+                "Otro"
+              ]
+            },
+            { "id": "mensaje", "type": "textarea", "label": "Detalles del Vehículo (Marca, Modelo, Año y Consulta)", "required": false }
+          ],
+          "submitLabel": "Confirmar Cotización",
+          "successMessage": "¡Excelente! Hemos recibido tus datos y te contactaremos en breve por teléfono o correo para confirmar.",
+          "errorMessage": "Hubo un error de conexión. Por favor, contáctanos directamente haciendo clic en el botón de WhatsApp.",
+          "successAction": "message"
+        },
+        {
+          "id": "ubicacion",
+          "type": "map-embed",
+          "sectionLabel": "Ubicación",
+          "headline": "Visítanos en Linares",
+          "address": "Av. Presidente Ibáñez #630, Linares, Chile",
+          "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3221.7371302821625!2d-71.5937803!3d-35.8553255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9668c7e997f742f1%3A0xe979d300ee79d638!2sAv%20Pres%20Ib%C3%A1%C3%B1ez%20630%2C%20Linares%2C%20Maule!5e0!3m2!1ses-419!2scl!4v1718150000000!5m2!1ses-419!2scl",
+          "mapHeight": 400
+        },
+        {
+          "id": "footer",
+          "type": "footer",
+          "tagline": "Potencia, rendimiento y cuidado para tu vehículo.",
+          "links": [
+            { "text": "Política de Privacidad", "href": "/privacidad" }
+          ],
+          "navigation": [
+            { "text": "Catálogo", "href": "/catalogo" },
+            { "text": "Carrito", "href": "/carrito" }
+          ],
+          "social": {
+            "instagram": "https://www.instagram.com/linaresracingcars"
+          }
+        }
+      ]
+    },
+    "catalogo": {
+      "slug": "/catalogo",
+      "seo": {
+        "title": "Vitrina de Insumos y Accesorios — Racing Cars",
+        "description": "Explora aceites, filtros, bujías y ampolletas de marcas líderes como Bosch, Mannol, Liqui Moly, Fuchs y Shell. Distribuidor oficial EMASA."
+      }
+    }
+  }
+}
