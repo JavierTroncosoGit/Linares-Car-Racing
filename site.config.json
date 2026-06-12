@@ -83,7 +83,7 @@
     "currencySymbol": "$",
     "sheetsConfig": {
       "_guide": "URL del Google Sheet publicado como CSV. Reemplazar cuando el cliente entregue la URL real.",
-      "productsSheetUrl": "https://docs.google.com/spreadsheets/d/1TBwyclUtHs-iAxjqBKlhVYR7p_0BaKPRGaiMev7S0fY/export?format=csv",
+      "productsSheetUrl": "https://docs.google.com/spreadsheets/d/1TBwyclUtHs-iAxjqBKlhVYR7p_0BaKPRGaiMev7S0fY/export?format=csv&gid=2041320537",
       "revalidateSeconds": 3600
     },
     "categories": [

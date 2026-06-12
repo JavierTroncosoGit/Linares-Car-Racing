@@ -29,6 +29,7 @@ function parseCsvLine(line: string): string[] {
 
 /**
  * Normalizes header names to standard product fields.
+ * Uses includes() for flexible matching with the actual Google Sheets headers.
  */
 function getHeaderMapping(headers: string[]): Record<string, number> {
   const mapping: Record<string, number> = {};
@@ -36,21 +37,42 @@ function getHeaderMapping(headers: string[]): Record<string, number> {
   headers.forEach((header, index) => {
     const normalized = header.toLowerCase().trim();
 
-    if (normalized.includes("sku") || normalized === "id") {
+    // SKU / ID — must be checked first to avoid false matches
+    if (normalized === "sku" || normalized === "id" || normalized === "codigo" || normalized === "código") {
       mapping.sku = index;
-    } else if (normalized.includes("nombre") || normalized === "name" || normalized === "title" || normalized === "producto") {
+    }
+    // Name — product name, checked before description to avoid "nombre" matching "description"
+    else if (normalized === "name" || normalized === "nombre" || normalized === "title" || normalized === "producto") {
       mapping.name = index;
-    } else if (normalized.includes("descripcion") || normalized.includes("descripción") || normalized === "description") {
+    }
+    // Description — uses includes() for variants like "description", "description_long", "descripcion"
+    else if (
+      (normalized.includes("descripcion") || normalized.includes("descripción") || normalized.includes("description")) &&
+      !mapping.description // only map the first description column found
+    ) {
       mapping.description = index;
-    } else if (normalized.includes("marca") || normalized === "brand") {
+    }
+    // Brand
+    else if (normalized.includes("marca") || normalized === "brand") {
       mapping.brand = index;
-    } else if (normalized.includes("precio") || normalized === "price" || normalized === "valor") {
+    }
+    // Price
+    else if (normalized.includes("precio") || normalized === "price" || normalized === "valor") {
       mapping.price = index;
-    } else if (normalized.includes("categoria") || normalized.includes("categoría") || normalized === "category") {
+    }
+    // Category
+    else if (normalized.includes("categoria") || normalized.includes("categoría") || normalized === "category") {
       mapping.category = index;
-    } else if (normalized.includes("imagen") || normalized === "image" || normalized === "url") {
+    }
+    // Image — uses includes("image") to match "image", "image_main", "imagen", "imagen_principal", etc.
+    else if (
+      (normalized.includes("imagen") || normalized.includes("image") || normalized === "url" || normalized === "foto") &&
+      !mapping.image // only map the first image column found
+    ) {
       mapping.image = index;
-    } else if (normalized.includes("featured") || normalized.includes("destacado")) {
+    }
+    // Featured / Destacado
+    else if (normalized.includes("featured") || normalized.includes("destacado")) {
       mapping.featured = index;
     }
   });
@@ -75,76 +97,104 @@ function slugify(text: string): string {
 }
 
 /**
+ * Safely gets a field value from a parsed CSV row, returning empty string if index is out of bounds.
+ */
+function safeGet(fields: string[], index: number | undefined): string {
+  if (index === undefined || index < 0 || index >= fields.length) return "";
+  return fields[index] || "";
+}
+
+/**
  * Fetches and parses the Google Sheets CSV.
  */
 export async function fetchProducts(): Promise<Product[]> {
-  const url = siteConfig.store.sheetsConfig.productsSheetUrl;
-  
+  let url = siteConfig.store.sheetsConfig.productsSheetUrl;
+
   if (!url || url.includes("XXXXX") || url.includes("XXXX")) {
-    console.warn("Google Sheets URL is placeholder or empty. Returning empty product list.");
+    console.warn("[Sheets] URL is placeholder or empty. Returning empty product list.");
     return [];
   }
 
+  // En entorno de desarrollo, agregamos un timestamp para evitar cache y ver los cambios al instante
+  if (process.env.NODE_ENV === "development") {
+    const separator = url.includes("?") ? "&" : "?";
+    url = `${url}${separator}_t=${Date.now()}`;
+  }
+
   try {
-    const revalidate = siteConfig.store.sheetsConfig.revalidateSeconds || 3600;
+    const revalidate = process.env.NODE_ENV === "development" ? 0 : (siteConfig.store.sheetsConfig.revalidateSeconds || 3600);
     const response = await fetch(url, {
       next: { revalidate },
+      // Prevent any HTTP-level caching in development
+      ...(process.env.NODE_ENV === "development" && { cache: "no-store" as RequestCache }),
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch CSV: ${response.statusText}`);
+      throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`);
     }
 
     const csvText = await response.text();
     const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
 
     if (lines.length < 2) {
+      console.warn("[Sheets] CSV has less than 2 lines (header + data). Returning empty list.");
       return [];
     }
 
     const headers = parseCsvLine(lines[0]);
     const mapping = getHeaderMapping(headers);
 
+    console.log("[Sheets] Headers found:", headers);
+    console.log("[Sheets] Column mapping:", mapping);
+    console.log("[Sheets] Total data rows:", lines.length - 1);
+
     // Validate minimum required fields mapping
     if (mapping.sku === undefined || mapping.name === undefined || mapping.price === undefined) {
-      console.error("CSV Headers missing mandatory fields (sku, name, price). Mapped headers:", mapping);
+      console.error(
+        "[Sheets] CSV Headers missing mandatory fields. Need: sku, name, price.",
+        "\n  Mapped so far:", JSON.stringify(mapping),
+        "\n  Raw headers:", headers
+      );
       return [];
     }
 
     const products: Product[] = [];
+    let skippedEmpty = 0;
 
     for (let i = 1; i < lines.length; i++) {
       const fields = parseCsvLine(lines[i]);
-      if (fields.length < Object.keys(mapping).length) continue;
 
-      const sku = fields[mapping.sku] || `SKU-${i}`;
-      const name = fields[mapping.name] || "";
-      if (!name) continue; // Skip empty rows
+      // Use safeGet to avoid index out-of-bounds issues
+      const sku = safeGet(fields, mapping.sku) || `SKU-${i}`;
+      const name = safeGet(fields, mapping.name);
+      if (!name) {
+        skippedEmpty++;
+        continue; // Skip rows without a product name
+      }
 
-      const description = mapping.description !== undefined ? fields[mapping.description] || "" : "";
-      const brand = mapping.brand !== undefined ? fields[mapping.brand] || "" : "";
-      
-      // Parse price
-      let rawPrice = mapping.price !== undefined ? fields[mapping.price] || "0" : "0";
-      // Remove symbols like $, dots, spaces
-      rawPrice = rawPrice.replace(/[$\.\s,]/g, "");
+      const description = safeGet(fields, mapping.description);
+      const brand = safeGet(fields, mapping.brand);
+
+      // Parse price — remove currency symbols, dots (thousands separator in CLP), spaces, commas
+      let rawPrice = safeGet(fields, mapping.price) || "0";
+      rawPrice = rawPrice.replace(/[$.\s,]/g, "");
       const price = parseInt(rawPrice, 10) || 0;
 
-      const category = mapping.category !== undefined ? fields[mapping.category] || "General" : "General";
-      
+      const category = safeGet(fields, mapping.category) || "General";
+
       // Parse image, use fallback if empty
-      let image = mapping.image !== undefined ? fields[mapping.image] || "" : "";
+      let image = safeGet(fields, mapping.image);
       if (!image) {
         image = PLACEHOLDERS.productPlaceholder.src || PLACEHOLDERS.productPlaceholder.fallback;
       }
 
       // Parse featured
-      const rawFeatured = mapping.featured !== undefined ? fields[mapping.featured] || "" : "";
-      const featured = rawFeatured.toLowerCase().trim() === "true" || 
-                       rawFeatured.toLowerCase().trim() === "yes" || 
-                       rawFeatured.trim() === "1" ||
-                       rawFeatured.toLowerCase().trim() === "si" ||
-                       rawFeatured.toLowerCase().trim() === "sí";
+      const rawFeatured = safeGet(fields, mapping.featured).toLowerCase().trim();
+      const featured = rawFeatured === "true" ||
+                       rawFeatured === "yes" ||
+                       rawFeatured === "1" ||
+                       rawFeatured === "si" ||
+                       rawFeatured === "sí";
 
       const slug = `${slugify(name)}-${sku.toLowerCase()}`;
 
@@ -161,9 +211,10 @@ export async function fetchProducts(): Promise<Product[]> {
       });
     }
 
+    console.log(`[Sheets] Parsed ${products.length} products (${skippedEmpty} empty rows skipped)`);
     return products;
   } catch (error) {
-    console.error("Error fetching or parsing products CSV:", error);
+    console.error("[Sheets] Error fetching or parsing products CSV:", error);
     return [];
   }
 }
