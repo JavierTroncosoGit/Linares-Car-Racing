@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Menu, X, Sun, Moon } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import siteConfig from "@/lib/config";
 import { useCart } from "@/hooks/useCart";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
@@ -15,7 +16,6 @@ export default function Navbar() {
   const { totalItems, openDrawer } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,30 +30,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Theme Toggler Initialization
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme = savedTheme || (systemPrefersDark ? "dark" : "light");
-    setTheme(initialTheme);
-    if (initialTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    localStorage.setItem("theme", nextTheme);
-    if (nextTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-
   const navSection = siteConfig.pages.landing.sections.find((s) => s.type === "navbar");
   if (!navSection) return null;
 
@@ -64,8 +40,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 border-b ${
         scrolled
-          ? "bg-bg-secondary/95 backdrop-blur-md border-border py-3"
-          : "bg-transparent border-transparent py-5"
+          ? "bg-bg-secondary/95 backdrop-blur-md border-border py-2"
+          : "bg-transparent border-transparent py-4"
       }`}
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -73,13 +49,17 @@ export default function Navbar() {
         <div className="flex flex-col items-start">
           <Link 
             href="/" 
-            className="text-lg sm:text-2xl font-black tracking-wider text-primary font-heading uppercase italic hover:scale-[1.02] transition-transform duration-200"
+            className="hover:scale-[1.02] transition-transform duration-200 block py-1"
           >
-            {siteConfig.brand.name}
+            <Image
+              src={siteConfig.brand.logo.src}
+              alt={siteConfig.brand.logo.alt}
+              width={siteConfig.brand.logo.width}
+              height={siteConfig.brand.logo.height}
+              className="h-10 sm:h-12 w-auto object-contain"
+              priority
+            />
           </Link>
-          <div className="hidden sm:block mt-0.5">
-            <StatusBadge />
-          </div>
         </div>
 
         {/* Desktop Navigation Links */}
@@ -101,15 +81,6 @@ export default function Navbar() {
 
         {/* Right side controls */}
         <div className="flex items-center gap-2 sm:gap-4">
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2.5 bg-bg-secondary/50 border border-border/50 hover:border-primary hover:text-primary rounded-full transition-all duration-300 cursor-pointer flex items-center justify-center text-text-primary"
-            aria-label="Cambiar tema de color"
-          >
-            {theme === "dark" ? <Sun className="w-4 h-4 sm:w-5 sm:h-5" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5" />}
-          </button>
-
           {/* Cart Icon Button (triggers sidebar) */}
           {navSection.showCart && (
             <button
@@ -129,14 +100,17 @@ export default function Navbar() {
             </button>
           )}
 
-          {/* Desktop CTA Button */}
+          {/* Desktop CTA Button with Status Badge above */}
           {cta && (
-            <Link
-              href={cta.href}
-              className="hidden sm:inline-block px-5 py-2.5 bg-primary text-bg-primary font-extrabold font-heading text-xs tracking-wider rounded hover:bg-primary-dark transition-all duration-300 shadow hover:shadow-primary/10 hover:-translate-y-0.5"
-            >
-              {cta.text.toUpperCase()}
-            </Link>
+            <div className="hidden sm:flex flex-col items-end gap-1">
+              <StatusBadge />
+              <Link
+                href={cta.href}
+                className="px-5 py-2.5 bg-primary text-bg-primary font-extrabold font-heading text-xs tracking-wider rounded hover:bg-primary-dark transition-all duration-300 shadow hover:shadow-primary/10 hover:-translate-y-0.5"
+              >
+                {cta.text.toUpperCase()}
+              </Link>
+            </div>
           )}
 
           {/* Mobile Sandwich menu trigger */}
@@ -150,13 +124,22 @@ export default function Navbar() {
             
             <SheetContent 
               side="right" 
+              showCloseButton={false}
               className="w-full sm:max-w-md bg-bg-secondary border-l border-border p-6 flex flex-col justify-between"
             >
               <div>
                 <SheetHeader className="flex flex-row items-center justify-between border-b border-border/50 pb-4 mb-6">
                   <div className="flex flex-col items-start">
-                    <SheetTitle className="text-xl font-black font-heading text-primary uppercase italic tracking-wider">
-                      {siteConfig.brand.name}
+                    <SheetTitle>
+                      <Link href="/" className="block">
+                        <Image
+                          src={siteConfig.brand.logo.src}
+                          alt={siteConfig.brand.logo.alt}
+                          width={siteConfig.brand.logo.width}
+                          height={siteConfig.brand.logo.height}
+                          className="h-10 w-auto object-contain"
+                        />
+                      </Link>
                     </SheetTitle>
                     <div className="mt-1">
                       <StatusBadge />

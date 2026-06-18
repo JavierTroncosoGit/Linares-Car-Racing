@@ -156,6 +156,12 @@ export interface ServiceCategory {
   services: ServiceItem[];
 }
 
+export interface ServiceSuperCategory {
+  name: string;
+  icon: string;
+  subcategories: ServiceCategory[];
+}
+
 export interface StepItem {
   number: string;
   title: string;
@@ -203,7 +209,7 @@ export interface PageSection {
   
   // Services specific
   columns?: number;
-  categories?: ServiceCategory[];
+  categories?: ServiceSuperCategory[];
   
   // Featured products specific
   ctaCatalog?: SectionLink;

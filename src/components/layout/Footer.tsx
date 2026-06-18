@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 import siteConfig from "@/lib/config";
 import CopyButton from "@/components/ui/CopyButton";
@@ -18,8 +19,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand Info */}
           <div className="space-y-4 col-span-1 md:col-span-1">
-            <Link href="/" className="text-xl font-black font-heading text-primary uppercase italic tracking-wider">
-              {siteConfig.brand.name}
+            <Link href="/" className="hover:scale-[1.02] transition-transform duration-200 block py-1">
+              <Image
+                src={siteConfig.brand.logo.src}
+                alt={siteConfig.brand.logo.alt}
+                width={siteConfig.brand.logo.width}
+                height={siteConfig.brand.logo.height}
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
             </Link>
             <p className="text-xs text-text-secondary font-light leading-relaxed">
               {footerSection.tagline}

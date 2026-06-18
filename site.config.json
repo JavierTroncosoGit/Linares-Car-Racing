@@ -7,7 +7,7 @@
   "brand": {
     "name": "Racing Cars",
     "logo": {
-      "src": "/assets/logo-principal.png",
+      "src": "/assets/logo-horizontal-blanco.png",
       "alt": "Racing Cars Logo",
       "width": 180,
       "height": 60
@@ -47,7 +47,7 @@
     "description_max": "155 caracteres",
     "ogTitle": "Racing Cars — Lubricentro y Accesorios en Linares",
     "ogDescription": "Mecánica rápida, lubricentro y tienda de accesorios automotrices. Distribuidor exclusivo de productos EMASA en el Maule.",
-    "ogImage": "/assets/logo-principal.png",
+    "ogImage": "/assets/logo-horizontal-blanco.png",
     "canonicalUrl": "https://racingcarslinares.cl",
     "locale": "es_CL"
   },
@@ -69,9 +69,21 @@
       "instagram": "https://www.instagram.com/linaresracingcars"
     },
     "schedule": {
-      "weekday": { "open": "09:00", "close": "18:00", "label": "Lunes a Viernes: 09:00 - 18:00" },
-      "saturday": { "open": "10:00", "close": "14:00", "label": "Sábado: 10:00 - 14:00" },
-      "sunday": { "open": "00:00", "close": "00:00", "label": "Domingo: Cerrado" }
+      "weekday": {
+        "open": "09:00",
+        "close": "18:00",
+        "label": "Lunes a Viernes: 09:00 - 18:00"
+      },
+      "saturday": {
+        "open": "10:00",
+        "close": "14:00",
+        "label": "Sábado: 10:00 - 14:00"
+      },
+      "sunday": {
+        "open": "00:00",
+        "close": "00:00",
+        "label": "Domingo: Cerrado"
+      }
     }
   },
   "animations": {
@@ -168,14 +180,31 @@
           "id": "navbar",
           "type": "navbar",
           "links": [
-            { "text": "Servicios", "href": "#servicios" },
-            { "text": "Destacados", "href": "#productos-destacados" },
-            { "text": "Catálogo", "href": "/catalogo" },
-            { "text": "Proceso", "href": "#proceso" },
-            { "text": "Preguntas", "href": "#faq" },
-            { "text": "Contacto", "href": "#contacto" }
+            {
+              "text": "Servicios",
+              "href": "#servicios"
+            },
+            {
+              "text": "Destacados",
+              "href": "#productos-destacados"
+            },
+            {
+              "text": "Proceso",
+              "href": "#proceso"
+            },
+            {
+              "text": "Preguntas",
+              "href": "#faq"
+            },
+            {
+              "text": "Contacto",
+              "href": "#ubicacion"
+            }
           ],
-          "cta": { "text": "Agendar Hora", "href": "#contacto" },
+          "cta": {
+            "text": "Agendar Hora",
+            "href": "https://wa.me/56967014233?text=Hola%20Racing%20Cars%2C%20me%20gustar%C3%ADa%20agendar%20una%20hora%20para%20servicio%20t%C3%A9cnico."
+          },
           "showCart": true
         },
         {
@@ -183,14 +212,22 @@
           "type": "hero",
           "badge": "🏎️ Taller Mecánico + Lubricentro + Tienda de Accesorios",
           "headline": "POTENCIA, RENDIMIENTO Y CUIDADO PARA TU VEHÍCULO",
-          "subheadline": "Lubricentro especializado y taller mecánico en Linares. Único distribuidor autorizado de productos EMASA en la Región del Maule.",
+          "subheadline": "Lubricentro especializado y taller mecánico en Linares.",
           "ctas": [
-            { "text": "Ver Catálogo", "href": "/catalogo", "variant": "primary" },
-            { "text": "Agendar Servicio", "href": "#contacto", "variant": "secondary" }
+            {
+              "text": "Ver Catálogo",
+              "href": "/catalogo",
+              "variant": "primary"
+            },
+            {
+              "text": "Agendar Servicio",
+              "href": "https://wa.me/56967014233?text=Hola%20Racing%20Cars%2C%20me%20gustar%C3%ADa%20agendar%20una%20hora%20para%20servicio%20t%C3%A9cnico.",
+              "variant": "secondary"
+            }
           ],
           "media": {
             "type": "image",
-            "src": "/assets/logo-principal.png",
+            "src": "/assets/logo-horizontal-blanco.png",
             "alt": "Racing Cars — Lubricentro y Accesorios"
           }
         },
@@ -198,10 +235,26 @@
           "id": "stats",
           "type": "stats",
           "items": [
-            { "value": "20+", "label": "Servicios Técnicos", "icon": "wrench" },
-            { "value": "6+", "label": "Marcas Premium", "icon": "trophy" },
-            { "value": "Exclusivo", "label": "Distribuidor EMASA Maule", "icon": "shield" },
-            { "value": "100%", "label": "Calidad Alemana", "icon": "check-circle" }
+            {
+              "value": "20+",
+              "label": "Servicios Técnicos",
+              "icon": "wrench"
+            },
+            {
+              "value": "6+",
+              "label": "Marcas Premium",
+              "icon": "trophy"
+            },
+            {
+              "value": "Exclusivo",
+              "label": "Distribuidor EMASA",
+              "icon": "shield"
+            },
+            {
+              "value": "100%",
+              "label": "Calidad Alemana",
+              "icon": "check-circle"
+            }
           ]
         },
         {
@@ -213,72 +266,153 @@
           "columns": 3,
           "categories": [
             {
-              "name": "Mecánica Rápida",
-              "icon": "wrench",
-              "services": [
-                { "name": "Mecánica rápida y reparaciones varias", "description": "Solución ágil a problemas mecánicos cotidianos." }
-              ]
-            },
-            {
-              "name": "Diagnóstico y Electrónica",
-              "icon": "scan-line",
-              "services": [
-                { "name": "Diagnóstico profesional con escáner", "description": "Lectura y borrado completo de códigos de falla DTC." },
-                { "name": "Cambio de sensores", "description": "Reemplazo preciso de sensores electrónicos automotrices." }
-              ]
-            },
-            {
-              "name": "Motor y Distribución",
+              "name": "Mecánica y Motor",
               "icon": "cog",
-              "services": [
-                { "name": "Cambio de correas de distribución y accesorios", "description": "Mantenimiento preventivo para la vida del motor." },
-                { "name": "Cambio de bujías Bosch", "description": "Bujías originales Bosch para óptimo encendido." },
-                { "name": "Limpieza del cuerpo de aceleración", "description": "Optimización de la mezcla de aire y combustible." },
-                { "name": "Cambio de termostato", "description": "Garantía de temperatura de trabajo estable." },
-                { "name": "Cambio empaquetadura tapa de válvulas", "description": "Prevención y sellado de fugas de aceite." }
+              "subcategories": [
+                {
+                  "name": "Mecánica Rápida",
+                  "icon": "wrench",
+                  "services": [
+                    {
+                      "name": "Mecánica rápida y reparaciones varias",
+                      "description": "Solución ágil a problemas mecánicos cotidianos."
+                    }
+                  ]
+                },
+                {
+                  "name": "Motor y Distribución",
+                  "icon": "cog",
+                  "services": [
+                    {
+                      "name": "Cambio de correas de distribución y accesorios",
+                      "description": "Mantenimiento preventivo para la vida del motor."
+                    },
+                    {
+                      "name": "Cambio de bujías Bosch",
+                      "description": "Bujías originales Bosch para óptimo encendido."
+                    },
+                    {
+                      "name": "Limpieza del cuerpo de aceleración",
+                      "description": "Optimización de la mezcla de aire y combustible."
+                    },
+                    {
+                      "name": "Cambio de termostato",
+                      "description": "Garantía de temperatura de trabajo estable."
+                    },
+                    {
+                      "name": "Cambio empaquetadura tapa de válvulas",
+                      "description": "Prevención y sellado de fugas de aceite."
+                    }
+                  ]
+                },
+                {
+                  "name": "Transmisión",
+                  "icon": "cog",
+                  "services": [
+                    {
+                      "name": "Cambio de kit de embrague",
+                      "description": "Transmisión de potencia suave y eficiente."
+                    }
+                  ]
+                }
               ]
             },
             {
-              "name": "Frenos",
+              "name": "Seguridad y Conducción",
               "icon": "disc",
-              "services": [
-                { "name": "Cambio de pastillas y discos de frenos", "description": "Repuestos de alto coeficiente de frenado." },
-                { "name": "Limpieza y regulación de freno de tambor", "description": "Ajuste del sistema trasero para frenado seguro." }
+              "subcategories": [
+                {
+                  "name": "Frenos",
+                  "icon": "disc",
+                  "services": [
+                    {
+                      "name": "Cambio de pastillas y discos de frenos",
+                      "description": "Repuestos de alto coeficiente de frenado."
+                    },
+                    {
+                      "name": "Limpieza y regulación de freno de tambor",
+                      "description": "Ajuste del sistema trasero para frenado seguro."
+                    }
+                  ]
+                },
+                {
+                  "name": "Suspensión y Dirección",
+                  "icon": "move-vertical",
+                  "services": [
+                    {
+                      "name": "Cambio de amortiguadores",
+                      "description": "Estabilidad y absorción óptima de impactos."
+                    },
+                    {
+                      "name": "Cambio de bandejas superiores e inferiores",
+                      "description": "Garantía de alineación y seguridad geométrica."
+                    },
+                    {
+                      "name": "Cambio de punta de dirección",
+                      "description": "Precisión y suavidad en la conducción."
+                    },
+                    {
+                      "name": "Revisión e inspección de tren delantero",
+                      "description": "Evaluación detallada de componentes de suspensión."
+                    }
+                  ]
+                }
               ]
             },
             {
-              "name": "Suspensión y Dirección",
-              "icon": "move-vertical",
-              "services": [
-                { "name": "Cambio de amortiguadores", "description": "Estabilidad y absorción óptima de impactos." },
-                { "name": "Cambio de bandejas superiores e inferiores", "description": "Garantía de alineación y seguridad geométrica." },
-                { "name": "Cambio de punta de dirección", "description": "Precisión y suavidad en la conducción." },
-                { "name": "Revisión e inspección de tren delantero", "description": "Evaluación detallada de componentes de suspensión." }
-              ]
-            },
-            {
-              "name": "Mantenimiento",
+              "name": "Mantenimiento y Diagnóstico",
               "icon": "filter",
-              "services": [
-                { "name": "Cambio de aceite de motor y transmisión", "description": "Lubricantes de marcas mundiales líderes." },
-                { "name": "Cambio de filtros", "description": "Reemplazo de filtros de aceite, aire, cabina y petróleo." },
-                { "name": "Cambio de radiador y refrigerantes", "description": "Cuidado preventivo contra sobrecalentamiento." },
-                { "name": "Cambio de plumillas limpiaparabrisas", "description": "Máxima visibilidad bajo la lluvia." }
-              ]
-            },
-            {
-              "name": "Transmisión",
-              "icon": "cog",
-              "services": [
-                { "name": "Cambio de kit de embrague", "description": "Transmisión de potencia suave y eficiente." }
-              ]
-            },
-            {
-              "name": "Eléctrico e Iluminación",
-              "icon": "lightbulb",
-              "services": [
-                { "name": "Cambio de ampolletas LED/halógenas", "description": "Iluminación óptima para conducción nocturna." },
-                { "name": "Reemplazo de baterías", "description": "Venta e instalación de baterías de alta durabilidad." }
+              "subcategories": [
+                {
+                  "name": "Diagnóstico y Electrónica",
+                  "icon": "scan-line",
+                  "services": [
+                    {
+                      "name": "Diagnóstico profesional con escáner",
+                      "description": "Lectura y borrado completo de códigos de falla DTC."
+                    },
+                    {
+                      "name": "Cambio de sensores",
+                      "description": "Reemplazo preciso de sensores electrónicos automotrices."
+                    }
+                  ]
+                },
+                {
+                  "name": "Mantenimiento",
+                  "icon": "filter",
+                  "services": [
+                    {
+                      "name": "Cambio de aceite de motor y transmisión",
+                      "description": "Lubricantes de marcas mundiales líderes."
+                    },
+                    {
+                      "name": "Cambio de filtros",
+                      "description": "Reemplazo de filtros de aceite, aire, cabina y petróleo."
+                    },
+                    {
+                      "name": "Cambio de radiador y refrigerantes",
+                      "description": "Cuidado preventivo contra sobrecalentamiento."
+                    },
+                    {
+                      "name": "Cambio de plumillas limpiaparabrisas",
+                      "description": "Máxima visibilidad bajo la lluvia."
+                    }
+                  ]
+                },
+                {
+                  "name": "Eléctrico e Iluminación",
+                  "icon": "lightbulb",
+                  "services": [
+                    {
+                      "name": "Cambio de ampolletas LED/halógenas",
+                      "description": "Iluminación óptima para conducción nocturna."
+                    },
+                    {
+                      "name": "Reemplazo de baterías",
+                      "description": "Venta e instalación de baterías de alta durabilidad."
+                    }
+                  ]
+                }
               ]
             }
           ]
@@ -289,7 +423,10 @@
           "sectionLabel": "Destacados de la Tienda",
           "headline": "Productos Destacados del Mes",
           "subheadline": "Equipa tu auto con lubricantes, filtros y accesorios recomendados por nuestros técnicos",
-          "ctaCatalog": { "text": "Ver catálogo completo", "href": "/catalogo" }
+          "ctaCatalog": {
+            "text": "Ver catálogo completo",
+            "href": "/catalogo"
+          }
         },
         {
           "id": "proceso",
@@ -322,12 +459,36 @@
           "sectionLabel": "Marcas de Confianza",
           "headline": "Trabajamos con los mejores del mercado",
           "items": [
-            { "name": "Bosch", "logo": "/assets/brands/bosch.png", "note": "Líder mundial" },
-            { "name": "Mannol", "logo": "/assets/brands/mannol.png", "note": "Aceites premium" },
-            { "name": "Liqui Moly", "logo": "/assets/brands/liqui-moly.png", "note": "Máxima calidad" },
-            { "name": "Fuchs", "logo": "/assets/brands/fuchs.png", "note": "Tecnología alemana" },
-            { "name": "Shell Lubricants", "logo": "/assets/brands/shell.png", "note": "Líder global" },
-            { "name": "EMASA", "logo": "/assets/brands/emasa.png", "note": "Distribuidor exclusivo" }
+            {
+              "name": "Bosch",
+              "logo": "/assets/brands/bosch.png",
+              "note": "Líder mundial"
+            },
+            {
+              "name": "Mannol",
+              "logo": "/assets/brands/mannol.png",
+              "note": "Aceites premium"
+            },
+            {
+              "name": "Liqui Moly",
+              "logo": "/assets/brands/liqui-moly.png",
+              "note": "Máxima calidad"
+            },
+            {
+              "name": "Fuchs",
+              "logo": "/assets/brands/fuchs.png",
+              "note": "Tecnología alemana"
+            },
+            {
+              "name": "Shell Lubricants",
+              "logo": "/assets/brands/shell.png",
+              "note": "Líder global"
+            },
+            {
+              "name": "EMASA",
+              "logo": "/assets/brands/emasa.png",
+              "note": "Distribuidor exclusivo"
+            }
           ]
         },
         {
@@ -360,7 +521,10 @@
           "type": "cta-banner",
           "headline": "¿TU VEHÍCULO NECESITA MANTENIMIENTO?",
           "subheadline": "Escríbenos ahora mismo. Respondemos en minutos para coordinar tu cita o cotizar tus repuestos.",
-          "cta": { "text": "Chatear por WhatsApp", "href": "https://wa.me/56949340772" }
+          "cta": {
+            "text": "Chatear por WhatsApp",
+            "href": "https://wa.me/56949340772"
+          }
         },
         {
           "id": "contacto",
@@ -370,11 +534,29 @@
           "subheadline": "Completa el formulario y te contactamos en minutos.",
           "destinationEmail": "linaresracingcars@gmail.com",
           "fields": [
-            { "id": "nombre", "type": "text", "label": "Tu Nombre Completo", "required": true },
-            { "id": "telefono", "type": "tel", "label": "Teléfono de Contacto", "required": true },
-            { "id": "email", "type": "email", "label": "Correo Electrónico", "required": false },
             {
-              "id": "servicio", "type": "select", "label": "¿Qué servicio necesitas?", "required": false,
+              "id": "nombre",
+              "type": "text",
+              "label": "Tu Nombre Completo",
+              "required": true
+            },
+            {
+              "id": "telefono",
+              "type": "tel",
+              "label": "Teléfono de Contacto",
+              "required": true
+            },
+            {
+              "id": "email",
+              "type": "email",
+              "label": "Correo Electrónico",
+              "required": false
+            },
+            {
+              "id": "servicio",
+              "type": "select",
+              "label": "¿Qué servicio necesitas?",
+              "required": false,
               "options": [
                 "Mecánica Rápida",
                 "Diagnóstico Electrónico",
@@ -386,7 +568,12 @@
                 "Otro"
               ]
             },
-            { "id": "mensaje", "type": "textarea", "label": "Detalles del Vehículo (Marca, Modelo, Año y Consulta)", "required": false }
+            {
+              "id": "mensaje",
+              "type": "textarea",
+              "label": "Detalles del Vehículo (Marca, Modelo, Año y Consulta)",
+              "required": false
+            }
           ],
           "submitLabel": "Confirmar Cotización",
           "successMessage": "¡Excelente! Hemos recibido tus datos y te contactaremos en breve por teléfono o correo para confirmar.",
@@ -407,11 +594,16 @@
           "type": "footer",
           "tagline": "Potencia, rendimiento y cuidado para tu vehículo.",
           "links": [
-            { "text": "Política de Privacidad", "href": "/privacidad" }
+            {
+              "text": "Política de Privacidad",
+              "href": "/privacidad"
+            }
           ],
           "navigation": [
-            { "text": "Catálogo", "href": "/catalogo" },
-            { "text": "Carrito", "href": "/carrito" }
+            {
+              "text": "Carrito",
+              "href": "/carrito"
+            }
           ],
           "social": {
             "instagram": "https://www.instagram.com/linaresracingcars"
