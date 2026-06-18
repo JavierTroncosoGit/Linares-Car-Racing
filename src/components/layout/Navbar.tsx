@@ -56,7 +56,7 @@ export default function Navbar() {
               alt={siteConfig.brand.logo.alt}
               width={siteConfig.brand.logo.width}
               height={siteConfig.brand.logo.height}
-              className="h-10 sm:h-12 w-auto object-contain"
+              className="h-5 sm:h-6 w-auto object-contain"
               priority
             />
           </Link>
@@ -137,7 +137,7 @@ export default function Navbar() {
                           alt={siteConfig.brand.logo.alt}
                           width={siteConfig.brand.logo.width}
                           height={siteConfig.brand.logo.height}
-                          className="h-10 w-auto object-contain"
+                          className="h-5 w-auto object-contain"
                         />
                       </Link>
                     </SheetTitle>

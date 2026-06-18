@@ -25,7 +25,7 @@ export default function Footer() {
                 alt={siteConfig.brand.logo.alt}
                 width={siteConfig.brand.logo.width}
                 height={siteConfig.brand.logo.height}
-                className="h-10 sm:h-12 w-auto object-contain"
+                className="h-5 sm:h-6 w-auto object-contain"
               />
             </Link>
             <p className="text-xs text-text-secondary font-light leading-relaxed">

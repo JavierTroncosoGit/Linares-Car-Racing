@@ -9,8 +9,8 @@
     "logo": {
       "src": "/assets/logo-horizontal-blanco.png",
       "alt": "Racing Cars Logo",
-      "width": 180,
-      "height": 60
+      "width": 90,
+      "height": 30
     },
     "favicon": "/favicon.ico"
   },
