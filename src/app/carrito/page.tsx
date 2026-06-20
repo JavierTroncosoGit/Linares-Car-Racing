@@ -236,7 +236,7 @@ export default function CarritoPage() {
               {/* Checkout Form */}
               <form onSubmit={handleSubmit(onSubmit)} className="border-t border-border pt-4 space-y-3">
                 <h3 className="text-sm font-bold font-heading text-primary uppercase">Datos de Contacto</h3>
-                
+
                 <div>
                   <label htmlFor="nombre" className="block text-xs font-semibold text-text-secondary mb-1">
                     Nombre Completo <span className="text-primary">*</span>
@@ -245,10 +245,9 @@ export default function CarritoPage() {
                     id="nombre"
                     type="text"
                     {...register("nombre")}
-                    placeholder="Ej. Juan Pérez"
-                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors ${
-                      errors.nombre ? "border-danger" : "border-border"
-                    }`}
+                    placeholder="Ej. Vicente Rojas"
+                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors ${errors.nombre ? "border-danger" : "border-border"
+                      }`}
                   />
                   {errors.nombre && (
                     <span className="text-xs text-danger font-medium block mt-1">
@@ -266,9 +265,8 @@ export default function CarritoPage() {
                     type="tel"
                     {...register("telefono")}
                     placeholder="Ej. +56912345678"
-                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors ${
-                      errors.telefono ? "border-danger" : "border-border"
-                    }`}
+                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors ${errors.telefono ? "border-danger" : "border-border"
+                      }`}
                   />
                   {errors.telefono && (
                     <span className="text-xs text-danger font-medium block mt-1">
@@ -286,9 +284,8 @@ export default function CarritoPage() {
                     type="email"
                     {...register("email")}
                     placeholder="Ej. juan@correo.com"
-                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors ${
-                      errors.email ? "border-danger" : "border-border"
-                    }`}
+                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors ${errors.email ? "border-danger" : "border-border"
+                      }`}
                   />
                   {errors.email && (
                     <span className="text-xs text-danger font-medium block mt-1">
@@ -306,9 +303,8 @@ export default function CarritoPage() {
                     {...register("mensaje")}
                     placeholder="Ej. Chevrolet Sail 2017, repuestos para mantención básica."
                     rows={3}
-                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors resize-none ${
-                      errors.mensaje ? "border-danger" : "border-border"
-                    }`}
+                    className={`w-full text-base bg-bg-primary border p-3 rounded text-text-primary focus:outline-none focus:border-primary transition-colors resize-none ${errors.mensaje ? "border-danger" : "border-border"
+                      }`}
                   />
                   {errors.mensaje && (
                     <span className="text-xs text-danger font-medium block mt-1">
