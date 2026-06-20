@@ -7,10 +7,9 @@ import Image from "next/image";
 import { Search, MessageSquare, ArrowRight } from "lucide-react";
 import { Product } from "@/types/product";
 import { formatCLP } from "@/lib/format";
-import siteConfig from "@/lib/config";
 import AddToCartButton from "./AddToCartButton";
 
-interface CategoryInfo {
+interface BrandInfo {
   id: string;
   name: string;
   slug: string;
@@ -19,43 +18,43 @@ interface CategoryInfo {
 
 interface CatalogoClientProps {
   products: Product[];
-  categories: CategoryInfo[];
+  brands: BrandInfo[];
 }
 
-export default function CatalogoClient({ products, categories }: CatalogoClientProps) {
+export default function CatalogoClient({ products, brands }: CatalogoClientProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
 
-  // Sync category state with search query param
+  // Sync brand state with search query param
   useEffect(() => {
-    const catSlug = searchParams.get("cat");
-    if (catSlug) {
-      const foundCat = categories.find((c) => c.slug === catSlug || c.id === catSlug);
-      if (foundCat) {
-        setSelectedCategoryId(foundCat.id);
+    const brandSlug = searchParams.get("brand");
+    if (brandSlug) {
+      const foundBrand = brands.find((b) => b.slug === brandSlug || b.id === brandSlug);
+      if (foundBrand) {
+        setSelectedBrandId(foundBrand.id);
       } else {
-        setSelectedCategoryId(null);
+        setSelectedBrandId(null);
       }
     } else {
-      setSelectedCategoryId(null);
+      setSelectedBrandId(null);
     }
-  }, [searchParams, categories]);
+  }, [searchParams, brands]);
 
-  const handleCategoryChange = (catId: string | null) => {
-    setSelectedCategoryId(catId);
+  const handleBrandChange = (brandId: string | null) => {
+    setSelectedBrandId(brandId);
     
     const params = new URLSearchParams(searchParams.toString());
-    if (catId) {
-      const cat = categories.find((c) => c.id === catId);
-      if (cat) {
-        params.set("cat", cat.slug);
+    if (brandId) {
+      const brand = brands.find((b) => b.id === brandId);
+      if (brand) {
+        params.set("brand", brand.slug);
       }
     } else {
-      params.delete("cat");
+      params.delete("brand");
     }
     
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
@@ -63,10 +62,10 @@ export default function CatalogoClient({ products, categories }: CatalogoClientP
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      // 1. Category Filter
-      if (selectedCategoryId) {
-        const cat = categories.find((c) => c.id === selectedCategoryId);
-        if (cat && product.category.toLowerCase().trim() !== cat.name.toLowerCase().trim()) {
+      // 1. Brand Filter
+      if (selectedBrandId) {
+        const brand = brands.find((b) => b.id === selectedBrandId);
+        if (brand && product.brand.toLowerCase().trim() !== brand.name.toLowerCase().trim()) {
           return false;
         }
       }
@@ -84,7 +83,7 @@ export default function CatalogoClient({ products, categories }: CatalogoClientP
 
       return true;
     });
-  }, [products, categories, selectedCategoryId, searchQuery]);
+  }, [products, brands, selectedBrandId, searchQuery]);
 
   const highlightText = (text: string, search: string) => {
     if (!search.trim()) return <span>{text}</span>;
@@ -107,20 +106,20 @@ export default function CatalogoClient({ products, categories }: CatalogoClientP
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-      {/* Sidebar Categorías */}
+      {/* Sidebar Marcas */}
       <div className="space-y-4">
         <h2 className="text-lg font-bold font-heading text-primary border-b border-border pb-2 uppercase tracking-wider">
-          Categorías
+          Marcas
         </h2>
-        {categories.length === 0 ? (
-          <p className="text-sm text-text-secondary">No hay categorías disponibles.</p>
+        {brands.length === 0 ? (
+          <p className="text-sm text-text-secondary">No hay marcas disponibles.</p>
         ) : (
           <ul className="space-y-1.5 text-sm select-none">
             <li>
               <button
-                onClick={() => handleCategoryChange(null)}
+                onClick={() => handleBrandChange(null)}
                 className={`w-full text-left py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
-                  selectedCategoryId === null
+                  selectedBrandId === null
                     ? "font-bold text-primary bg-primary/10 border border-primary/20"
                     : "text-text-secondary hover:text-text-primary hover:bg-border/20 border border-transparent"
                 }`}
@@ -128,21 +127,21 @@ export default function CatalogoClient({ products, categories }: CatalogoClientP
                 Todas ({products.length})
               </button>
             </li>
-            {categories.map((cat) => (
-              <li key={cat.id}>
+            {brands.map((brand) => (
+              <li key={brand.id}>
                 <button
-                  onClick={() => handleCategoryChange(cat.id)}
+                  onClick={() => handleBrandChange(brand.id)}
                   className={`w-full text-left py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer flex justify-between items-center ${
-                    selectedCategoryId === cat.id
+                    selectedBrandId === brand.id
                       ? "font-bold text-primary bg-primary/10 border border-primary/20"
                       : "text-text-secondary hover:text-text-primary hover:bg-border/20 border border-transparent"
                   }`}
                 >
-                  <span className="truncate pr-2">{cat.name}</span>
+                  <span className="truncate pr-2">{brand.name}</span>
                   <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                    selectedCategoryId === cat.id ? "bg-primary/20 text-primary" : "bg-bg-primary text-text-secondary"
+                    selectedBrandId === brand.id ? "bg-primary/20 text-primary" : "bg-bg-primary text-text-secondary"
                   }`}>
-                    {cat.count}
+                    {brand.count}
                   </span>
                 </button>
               </li>
@@ -196,7 +195,7 @@ export default function CatalogoClient({ products, categories }: CatalogoClientP
               <button
                 onClick={() => {
                   setSearchQuery("");
-                  setSelectedCategoryId(null);
+                  setSelectedBrandId(null);
                 }}
                 className="px-5 py-2.5 border border-border text-text-primary font-bold rounded hover:bg-border/20 transition-colors font-heading tracking-wide text-xs cursor-pointer"
               >
@@ -225,12 +224,12 @@ export default function CatalogoClient({ products, categories }: CatalogoClientP
                     <span className="text-[10px] font-bold text-primary font-heading uppercase tracking-widest">
                       {highlightText(product.brand, searchQuery)}
                     </span>
-                  <h3 className="font-extrabold text-text-primary text-base mt-1 line-clamp-2 uppercase font-heading min-h-[44px]">
-                    {highlightText(product.name, searchQuery)}
-                  </h3>
-                  <p className="text-[10px] text-text-secondary font-mono mt-0.5">
-                    SKU: {highlightText(product.sku, searchQuery)}
-                  </p>
+                    <h3 className="font-extrabold text-text-primary text-base mt-1 line-clamp-2 uppercase font-heading min-h-[44px]">
+                      {highlightText(product.name, searchQuery)}
+                    </h3>
+                    <p className="text-[10px] text-text-secondary font-mono mt-0.5">
+                      SKU: {highlightText(product.sku, searchQuery)}
+                    </p>
                     <p className="text-sm text-text-secondary mt-2.5 line-clamp-2 font-light leading-relaxed">
                       {highlightText(product.description, searchQuery)}
                     </p>

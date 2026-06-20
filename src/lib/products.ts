@@ -11,24 +11,15 @@ export function getFeaturedProducts(products: Product[], limit?: number): Produc
 }
 
 /**
- * Filters products by category. Maps category slug/id safely.
+ * Filters products by brand. Maps brand slug/id safely.
  */
-export function getProductsByCategory(products: Product[], categorySlugOrId: string): Product[] {
-  if (!categorySlugOrId || categorySlugOrId === "all") return products;
-  
-  // Find category config to match either id or slug
-  const catConfig = siteConfig.store.categories.find(
-    c => c.id === categorySlugOrId || c.slug === categorySlugOrId
-  );
+export function getProductsByBrand(products: Product[], brandSlugOrId: string): Product[] {
+  if (!brandSlugOrId || brandSlugOrId === "all") return products;
   
   return products.filter(p => {
-    const pCategoryNormalized = p.category.toLowerCase().trim();
-    if (catConfig) {
-      return pCategoryNormalized === catConfig.name.toLowerCase().trim() ||
-             pCategoryNormalized === catConfig.id.toLowerCase().trim() ||
-             pCategoryNormalized === catConfig.slug.toLowerCase().trim();
-    }
-    return pCategoryNormalized === categorySlugOrId.toLowerCase().trim();
+    const pBrandNormalized = (p.brand || "").toLowerCase().trim();
+    const slug = pBrandNormalized.replace(/\s+/g, "-").replace(/[^\w\-]+/g, "");
+    return pBrandNormalized === brandSlugOrId.toLowerCase().trim() || slug === brandSlugOrId.toLowerCase().trim();
   });
 }
 
@@ -56,55 +47,34 @@ export function getProductBySlug(products: Product[], slug: string): Product | u
 }
 
 /**
- * Returns dynamic list of categories with product count based on current catalog.
+ * Returns dynamic list of brands with product count based on current catalog.
  */
-export function getCategoriesWithCount(products: Product[]): { id: string; name: string; slug: string; count: number }[] {
+export function getBrandsWithCount(products: Product[]): { id: string; name: string; slug: string; count: number }[] {
   const counts: Record<string, number> = {};
   
   products.forEach(p => {
-    const cat = p.category.trim();
-    counts[cat] = (counts[cat] || 0) + 1;
+    const brand = (p.brand || "Genérico").trim();
+    counts[brand] = (counts[brand] || 0) + 1;
   });
 
-  // Map configuration categories first
-  const configCategories = siteConfig.store.categories.map(c => {
-    // Find matching count by name
-    const countKey = Object.keys(counts).find(
-      key => key.toLowerCase() === c.name.toLowerCase() || key.toLowerCase() === c.id.toLowerCase()
-    );
-    const count = countKey ? counts[countKey] : 0;
-    
-    return {
-      id: c.id,
-      name: c.name,
-      slug: c.slug,
-      count
-    };
-  }).filter(c => c.count > 0); // Only keep configured categories that have products in the sheet
-
-  // Add any extra categories found in the sheet that are not in the config
-  const handledNames = new Set(siteConfig.store.categories.map(c => c.name.toLowerCase()));
-  
-  Object.entries(counts).forEach(([name, count]) => {
-    if (!handledNames.has(name.toLowerCase())) {
+  return Object.entries(counts)
+    .map(([name, count]) => {
       const slug = name.toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "");
-      configCategories.push({
+      return {
         id: slug,
         name,
         slug,
         count
-      });
-    }
-  });
-
-  return configCategories;
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
- * Returns a list of 2 to 4 recommended products from the same category (excluding current product).
+ * Returns a list of 2 to 4 recommended products from the same brand (excluding current product).
  */
 export function getComplementaryProducts(products: Product[], currentProduct: Product, limit = 4): Product[] {
   return products
-    .filter(p => p.category.toLowerCase().trim() === currentProduct.category.toLowerCase().trim() && p.sku !== currentProduct.sku)
+    .filter(p => p.brand.toLowerCase().trim() === currentProduct.brand.toLowerCase().trim() && p.sku !== currentProduct.sku)
     .slice(0, limit);
 }

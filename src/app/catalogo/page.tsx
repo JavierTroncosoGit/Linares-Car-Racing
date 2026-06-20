@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { fetchProducts } from "@/lib/sheets";
-import { getCategoriesWithCount } from "@/lib/products";
+import { getBrandsWithCount } from "@/lib/products";
 import siteConfig from "@/lib/config";
 import CatalogoClient from "@/components/store/CatalogoClient";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default async function CatalogoPage() {
   const products = await fetchProducts();
-  const categories = getCategoriesWithCount(products);
+  const brands = getBrandsWithCount(products);
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12">
@@ -32,7 +32,7 @@ export default async function CatalogoPage() {
       </div>
 
       <Suspense fallback={<div className="text-center py-12 text-text-secondary">Cargando catálogo...</div>}>
-        <CatalogoClient products={products} categories={categories} />
+        <CatalogoClient products={products} brands={brands} />
       </Suspense>
     </div>
   );

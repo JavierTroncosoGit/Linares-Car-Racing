@@ -42,7 +42,7 @@ export default function BrandsGrid() {
 
         {/* Brands Grid */}
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+          className="flex flex-wrap justify-center items-center gap-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
@@ -51,7 +51,7 @@ export default function BrandsGrid() {
           {items.map((brand, idx) => (
             <motion.div
               key={idx}
-              className="border border-border/50 bg-bg-primary/50 p-6 rounded-xl flex flex-col items-center justify-center text-center h-28 hover:border-primary/50 hover:bg-bg-primary hover:shadow-lg transition-all duration-300 relative overflow-hidden group cursor-pointer"
+              className="border border-border/50 bg-bg-primary/50 p-6 rounded-xl flex flex-col items-center justify-center text-center h-28 hover:border-primary/50 hover:bg-bg-primary hover:shadow-lg transition-all duration-300 relative overflow-hidden group cursor-pointer w-[calc(50%-8px)] sm:w-[170px]"
               variants={cardVariants}
               whileHover={{ scale: 1.05 }}
             >

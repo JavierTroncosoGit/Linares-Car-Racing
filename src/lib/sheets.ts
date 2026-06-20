@@ -28,6 +28,41 @@ function parseCsvLine(line: string): string[] {
 }
 
 /**
+ * Splits a raw CSV text into logical rows, correctly handling
+ * fields that contain newlines inside double quotes.
+ */
+function splitCsvRows(text: string): string[] {
+  const rows: string[] = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    if (char === '"') {
+      inQuotes = !inQuotes;
+      current += char;
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      // End of a logical row
+      if (char === '\r' && text[i + 1] === '\n') {
+        i++; // Skip the \n after \r
+      }
+      rows.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+
+  // Push the last row if non-empty
+  if (current.length > 0) {
+    rows.push(current);
+  }
+
+  return rows;
+}
+
+/**
  * Normalizes header names to standard product fields.
  * Uses includes() for flexible matching with the actual Google Sheets headers.
  */
@@ -45,6 +80,16 @@ function getHeaderMapping(headers: string[]): Record<string, number> {
     else if (normalized === "name" || normalized === "nombre" || normalized === "title" || normalized === "producto") {
       mapping.name = index;
     }
+    // Description long — check BEFORE generic description to avoid false match
+    else if (
+      normalized === "description_long" ||
+      normalized === "descripcion_larga" ||
+      normalized === "descripción_larga" ||
+      normalized === "descripcion larga" ||
+      normalized === "descripción larga"
+    ) {
+      mapping.descriptionLong = index;
+    }
     // Description — uses includes() for variants like "description", "description_long", "descripcion"
     else if (
       (normalized.includes("descripcion") || normalized.includes("descripción") || normalized.includes("description")) &&
@@ -56,8 +101,15 @@ function getHeaderMapping(headers: string[]): Record<string, number> {
     else if (normalized.includes("marca") || normalized === "brand") {
       mapping.brand = index;
     }
+    // Precio anterior — must be checked BEFORE generic price to avoid false match
+    else if (normalized === "precio_anterior" || normalized === "precio anterior" || normalized === "precio_antes" || normalized === "original_price" || normalized === "originalprice" || normalized === "antes") {
+      mapping.originalPrice = index;
+    }
     // Price
-    else if (normalized.includes("precio") || normalized === "price" || normalized === "valor") {
+    else if (
+      (normalized.includes("precio") || normalized === "price" || normalized === "valor") &&
+      !mapping.price // only map the first price column found
+    ) {
       mapping.price = index;
     }
     // Category
@@ -74,6 +126,30 @@ function getHeaderMapping(headers: string[]): Record<string, number> {
     // Featured / Destacado
     else if (normalized.includes("featured") || normalized.includes("destacado")) {
       mapping.featured = index;
+    }
+    // Imagen 2
+    else if (normalized === "imagen_2" || normalized === "imagen2" || normalized === "image2" || normalized === "image_2") {
+      mapping.image2 = index;
+    }
+    // Imagen 3
+    else if (normalized === "imagen_3" || normalized === "imagen3" || normalized === "image3" || normalized === "image_3") {
+      mapping.image3 = index;
+    }
+    // Stock
+    else if (normalized === "stock" || normalized === "inventario" || normalized === "cantidad_stock") {
+      mapping.stock = index;
+    }
+    // Rating
+    else if (normalized === "rating" || normalized === "calificacion" || normalized === "calificación" || normalized === "estrellas") {
+      mapping.rating = index;
+    }
+    // Num reseñas
+    else if (normalized === "num_resenas" || normalized === "num_reseñas" || normalized === "resenas" || normalized === "reseñas" || normalized === "review_count" || normalized === "reviewcount" || normalized === "opiniones") {
+      mapping.reviewCount = index;
+    }
+    // Specs
+    else if (normalized === "specs" || normalized === "especificaciones" || normalized === "ficha_tecnica" || normalized === "ficha técnica" || normalized === "caracteristicas" || normalized === "características") {
+      mapping.specs = index;
     }
   });
 
@@ -134,7 +210,7 @@ export async function fetchProducts(): Promise<Product[]> {
     }
 
     const csvText = await response.text();
-    const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
+    const lines = splitCsvRows(csvText).filter(line => line.trim().length > 0);
 
     if (lines.length < 2) {
       console.warn("[Sheets] CSV has less than 2 lines (header + data). Returning empty list.");
@@ -173,12 +249,57 @@ export async function fetchProducts(): Promise<Product[]> {
       }
 
       const description = safeGet(fields, mapping.description);
+      const descriptionLong = safeGet(fields, mapping.descriptionLong) || undefined;
       const brand = safeGet(fields, mapping.brand);
 
       // Parse price — remove currency symbols, dots (thousands separator in CLP), spaces, commas
       let rawPrice = safeGet(fields, mapping.price) || "0";
       rawPrice = rawPrice.replace(/[$.\s,]/g, "");
       const price = parseInt(rawPrice, 10) || 0;
+
+      // Parse originalPrice
+      let originalPrice: number | undefined = undefined;
+      const rawOriginalPrice = safeGet(fields, mapping.originalPrice);
+      if (rawOriginalPrice) {
+        const cleanedOriginalPrice = rawOriginalPrice.replace(/[$.\s,]/g, "");
+        const parsedOriginalPrice = parseInt(cleanedOriginalPrice, 10);
+        if (!isNaN(parsedOriginalPrice) && parsedOriginalPrice > 0) {
+          originalPrice = parsedOriginalPrice;
+        }
+      }
+
+      // Parse stock
+      let stock: number | undefined = undefined;
+      const rawStock = safeGet(fields, mapping.stock);
+      if (rawStock) {
+        const parsedStock = parseInt(rawStock.trim(), 10);
+        if (!isNaN(parsedStock)) {
+          stock = parsedStock;
+        }
+      }
+
+      // Parse rating
+      let rating: number | undefined = undefined;
+      const rawRating = safeGet(fields, mapping.rating);
+      if (rawRating) {
+        const parsedRating = parseFloat(rawRating.trim());
+        if (!isNaN(parsedRating)) {
+          rating = parsedRating;
+        }
+      }
+
+      // Parse reviewCount
+      let reviewCount: number | undefined = undefined;
+      const rawReviewCount = safeGet(fields, mapping.reviewCount);
+      if (rawReviewCount) {
+        const parsedReviewCount = parseInt(rawReviewCount.trim(), 10);
+        if (!isNaN(parsedReviewCount)) {
+          reviewCount = parsedReviewCount;
+        }
+      }
+
+      // Parse specs
+      const specs = safeGet(fields, mapping.specs) || undefined;
 
       const category = safeGet(fields, mapping.category) || "General";
 
@@ -187,6 +308,13 @@ export async function fetchProducts(): Promise<Product[]> {
       if (!image) {
         image = PLACEHOLDERS.productPlaceholder.src || PLACEHOLDERS.productPlaceholder.fallback;
       }
+
+      // Build images gallery (max 3 images total: image + image2 + image3)
+      const images: string[] = [image];
+      const image2 = safeGet(fields, mapping.image2);
+      if (image2) images.push(image2);
+      const image3 = safeGet(fields, mapping.image3);
+      if (image3) images.push(image3);
 
       // Parse featured
       const rawFeatured = safeGet(fields, mapping.featured).toLowerCase().trim();
@@ -202,10 +330,17 @@ export async function fetchProducts(): Promise<Product[]> {
         sku,
         name,
         description,
+        descriptionLong,
         brand,
         price,
+        originalPrice,
         category,
         image,
+        images,
+        stock,
+        rating,
+        reviewCount,
+        specs,
         featured,
         slug
       });

@@ -21,14 +21,14 @@ export default function Stats() {
   return (
     <section id="stats" className="w-full bg-bg-secondary border-y border-border/40 py-6 sm:py-8">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+        <div className="flex flex-wrap justify-center items-stretch gap-6 sm:gap-10 md:gap-16 lg:gap-24">
           {items.map((item, index) => {
             const Icon = iconMap[item.icon] || CheckCircle;
             
             return (
               <motion.div
                 key={index}
-                className="flex items-center gap-3 sm:gap-4 p-2 rounded-xl hover:bg-bg-primary/30 transition-all duration-300"
+                className="flex flex-col items-center justify-center text-center p-4 rounded-xl hover:bg-bg-primary/30 transition-all duration-300 min-w-[140px] sm:min-w-[180px] max-w-[240px]"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -38,11 +38,11 @@ export default function Stats() {
                 <div className="p-2 sm:p-2.5 bg-primary/10 border border-primary/20 rounded-xl text-primary flex items-center justify-center flex-shrink-0 shadow-sm shadow-primary/5">
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <div className="flex flex-col text-left justify-center min-w-0">
+                <div className="flex flex-col text-center justify-center items-center min-w-0 mt-3">
                   <span className="text-xl sm:text-2xl lg:text-3xl font-black font-heading text-text-primary tracking-tight leading-none uppercase">
                     {item.value}
                   </span>
-                  <span className="text-[10px] sm:text-xs text-text-secondary mt-1 font-medium leading-tight max-w-[150px] line-clamp-3">
+                  <span className="text-[10px] sm:text-xs text-text-secondary mt-1.5 font-medium leading-tight max-w-[150px] line-clamp-3">
                     {item.label}
                   </span>
                 </div>

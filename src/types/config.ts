@@ -89,6 +89,12 @@ export interface ProductDetailConfig {
   maxComplementary: number;
   showBrand: boolean;
   showSku: boolean;
+  showGallery: boolean;
+  showZoom: boolean;
+  showDiscount: boolean;
+  showStock: boolean;
+  showRating: boolean;
+  showSpecs: boolean;
 }
 
 export interface CartConfig {

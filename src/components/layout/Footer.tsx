@@ -106,7 +106,7 @@ export default function Footer() {
             </p>
             <div className="border border-primary/20 bg-primary/5 p-3 rounded-lg text-center">
               <span className="text-[10px] uppercase font-bold tracking-widest text-primary font-heading">
-                Distribuidor EMASA Autorizado
+                Garantía y Calidad Original
               </span>
             </div>
           </div>

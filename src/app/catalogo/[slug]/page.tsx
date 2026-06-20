@@ -7,6 +7,8 @@ import { formatCLP } from "@/lib/format";
 import siteConfig from "@/lib/config";
 import ProductActionsClient from "@/components/store/ProductActionsClient";
 import ProductImageClient from "@/components/store/ProductImageClient";
+import ProductTabs from "@/components/store/ProductTabs";
+import { Star, StarHalf, AlertTriangle } from "lucide-react";
 
 // Use revalidate seconds from configuration
 export const revalidate = 3600;
@@ -30,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = `${product.name} — ${product.brand} | Racing Cars`;
   const description = product.description
     ? product.description.substring(0, 155)
-    : `Compra ${product.name} en Racing Cars Linares, distribuidor oficial EMASA. Calidad alemana y repuestos premium.`;
+    : `Compra ${product.name} en Racing Cars Linares. Calidad, repuestos y accesorios premium para tu vehículo.`;
   const canonicalUrl = `${siteConfig.seo.canonicalUrl || "https://racingcarslinares.cl"}/catalogo/${product.slug}`;
 
   return {
@@ -78,9 +80,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
           Catálogo
         </Link>
         <span>&gt;</span>
-        <span className="hover:text-primary transition-colors cursor-pointer capitalize">
-          {product.category}
-        </span>
+        <Link href={`/catalogo?brand=${product.brand.toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "")}`} className="hover:text-primary transition-colors uppercase font-semibold">
+          {product.brand}
+        </Link>
         <span>&gt;</span>
         <span className="text-text-primary font-semibold truncate max-w-[200px] sm:max-w-none">
           {product.name}
@@ -93,39 +95,112 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-border bg-bg-secondary p-6 sm:p-8 rounded-lg">
         {/* Product Image container */}
-        <ProductImageClient src={product.image} alt={product.name} />
+        <ProductImageClient images={product.images || [product.image]} alt={product.name} />
 
         {/* Product Details */}
         <div className="flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center">
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 border border-primary/20 text-primary font-heading uppercase tracking-wider">
-                {product.brand}
-              </span>
-              <span className="text-xs text-text-secondary font-mono">
-                SKU: {product.sku}
-              </span>
+              {siteConfig.store.productDetail.showBrand && (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 border border-primary/20 text-primary font-heading uppercase tracking-wider">
+                  {product.brand}
+                </span>
+              )}
+              {siteConfig.store.productDetail.showSku && (
+                <span className="text-xs text-text-secondary font-mono">
+                  SKU: {product.sku}
+                </span>
+              )}
             </div>
             
             <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-text-primary mt-3 uppercase tracking-wide">
               {product.name}
             </h1>
             
-            <p className="text-xs text-text-secondary mt-1">
-              Categoría: <span className="text-text-primary">{product.category}</span>
+            {/* Stars Rating */}
+            {product.rating && siteConfig.store.productDetail.showRating && (
+              <div className="flex items-center gap-2 mt-2 select-none">
+                <div className="flex items-center gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => {
+                    const starValue = i + 1;
+                    const isHalf = product.rating! % 1 !== 0 && starValue === Math.ceil(product.rating!);
+                    const isFull = starValue <= Math.floor(product.rating!);
+                    return (
+                      <span key={i} className="text-primary">
+                        {isFull ? (
+                          <Star className="w-4 h-4 fill-primary" />
+                        ) : isHalf ? (
+                          <StarHalf className="w-4 h-4 fill-primary" />
+                        ) : (
+                          <Star className="w-4 h-4 text-border" />
+                        )}
+                      </span>
+                    );
+                  })}
+                </div>
+                <span className="text-xs text-text-secondary font-medium">
+                  {product.rating} / 5 ({product.reviewCount || 0} valoraciones)
+                </span>
+              </div>
+            )}
+            
+            <p className="text-xs text-text-secondary mt-2">
+              Marca: <span className="text-text-primary uppercase font-semibold">{product.brand}</span>
             </p>
 
-            <p className="text-base text-text-secondary mt-6 border-t border-border/50 pt-4 whitespace-pre-line font-light">
-              {product.description || "Sin descripción disponible."}
+            {/* Stock badge */}
+            {typeof product.stock === "number" && siteConfig.store.productDetail.showStock && (
+              <div className="mt-4">
+                {product.stock === 0 ? (
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-neutral-900 border border-border text-text-secondary font-bold text-[10px] uppercase tracking-wider">
+                    Sin Stock — Consultar Disponibilidad
+                  </div>
+                ) : product.stock <= 3 ? (
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-danger/10 border border-danger/20 text-danger font-bold text-[10px] uppercase tracking-wider animate-pulse-stock">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    ¡Últimas {product.stock} unidades en stock!
+                  </div>
+                ) : product.stock <= 10 ? (
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] uppercase tracking-wider">
+                    {product.stock} unidades disponibles
+                  </div>
+                ) : (
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-success/10 border border-success/20 text-success font-bold text-[10px] uppercase tracking-wider">
+                    En Stock
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Short introduction to keep clean top detail */}
+            <p className="text-sm text-text-secondary mt-5 border-t border-border/30 pt-4 font-light leading-relaxed">
+              {product.description
+                ? product.description.length > 140
+                  ? `${product.description.substring(0, 140)}...`
+                  : product.description
+                : "Sin descripción disponible."}
             </p>
           </div>
 
           <div className="mt-8 border-t border-border/50 pt-6">
-            <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-3xl font-black font-heading text-primary">
-                {formatCLP(product.price)}
-              </span>
-              <span className="text-xs text-text-secondary">PVP IVA Incl.</span>
+            {/* Price section with discount anchoring */}
+            <div className="flex flex-col gap-1.5 mb-4">
+              {product.originalPrice && product.originalPrice > product.price && siteConfig.store.productDetail.showDiscount && (
+                <div className="flex items-center gap-2 select-none">
+                  <span className="text-sm text-text-secondary line-through font-mono">
+                    {formatCLP(product.originalPrice)}
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded bg-danger text-text-primary text-[10px] font-bold tracking-wider font-heading">
+                    -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                  </span>
+                </div>
+              )}
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-black font-heading text-primary">
+                  {formatCLP(product.price)}
+                </span>
+                <span className="text-xs text-text-secondary">PVP IVA Incl.</span>
+              </div>
             </div>
 
             {/* Quantity Selector & Checkout Actions */}
@@ -133,6 +208,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
         </div>
       </div>
+
+      {/* Interactive Tabs: Description, Technical Specs and Reviews */}
+      {siteConfig.store.productDetail.showSpecs && (
+        <ProductTabs product={product} />
+      )}
 
       {/* Recommended Products Section */}
       {recommendedProducts.length > 0 && (

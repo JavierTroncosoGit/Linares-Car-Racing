@@ -9,8 +9,8 @@
     "logo": {
       "src": "/assets/logo-horizontal-blanco.png",
       "alt": "Racing Cars Logo",
-      "width": 90,
-      "height": 30
+      "width": 300,
+      "height": 150
     },
     "favicon": "/favicon.ico"
   },
@@ -43,10 +43,10 @@
   "seo": {
     "title": "Racing Cars — Taller Mecánico, Lubricentro y Accesorios en Linares",
     "title_max": "60 caracteres",
-    "description": "Único distribuidor oficial EMASA en el Maule. Servicios de lubricentro, diagnóstico electrónico con escáner y mecánica rápida.",
+    "description": "Servicios de lubricentro, diagnóstico electrónico con escáner, taller mecánico y repuestos automotrices premium en Linares.",
     "description_max": "155 caracteres",
     "ogTitle": "Racing Cars — Lubricentro y Accesorios en Linares",
-    "ogDescription": "Mecánica rápida, lubricentro y tienda de accesorios automotrices. Distribuidor exclusivo de productos EMASA en el Maule.",
+    "ogDescription": "Mecánica rápida, lubricentro, taller de mantenimiento y tienda de accesorios automotrices premium en Linares.",
     "ogImage": "/assets/logo-horizontal-blanco.png",
     "canonicalUrl": "https://racingcarslinares.cl",
     "locale": "es_CL"
@@ -140,12 +140,6 @@
         "name": "Plumillas y Limpiaparabrisas",
         "slug": "plumillas-limpiaparabrisas",
         "icon": "wrench"
-      },
-      {
-        "id": "productos-emasa",
-        "name": "Productos EMASA",
-        "slug": "productos-emasa",
-        "icon": "shield"
       }
     ],
     "featuredSection": {
@@ -158,7 +152,13 @@
       "showComplementary": true,
       "maxComplementary": 4,
       "showBrand": true,
-      "showSku": true
+      "showSku": true,
+      "showGallery": true,
+      "showZoom": true,
+      "showDiscount": true,
+      "showStock": true,
+      "showRating": true,
+      "showSpecs": true
     },
     "cart": {
       "enabled": true,
@@ -246,13 +246,8 @@
               "icon": "trophy"
             },
             {
-              "value": "Exclusivo",
-              "label": "Distribuidor EMASA",
-              "icon": "shield"
-            },
-            {
               "value": "100%",
-              "label": "Calidad Alemana",
+              "label": "Calidad Garantizada",
               "icon": "check-circle"
             }
           ]
@@ -483,11 +478,6 @@
               "name": "Shell Lubricants",
               "logo": "/assets/brands/shell.png",
               "note": "Líder global"
-            },
-            {
-              "name": "EMASA",
-              "logo": "/assets/brands/emasa.png",
-              "note": "Distribuidor exclusivo"
             }
           ]
         },
@@ -509,10 +499,6 @@
             {
               "question": "¿Tienen despacho a domicilio de los productos del catálogo?",
               "answer": "Actualmente operamos bajo el formato de retiro en local en Av. Presidente Ibáñez #630, Linares. Esto nos permite garantizar la entrega correcta y brindarte asesoramiento técnico directo si lo necesitas."
-            },
-            {
-              "question": "¿Qué significa que sean distribuidor autorizado de EMASA?",
-              "answer": "Significa que somos el único canal oficial autorizado en la Región del Maule para vender y respaldar sus productos automotrices de prestigio internacional, garantizando autenticidad y el mejor precio."
             }
           ]
         },
@@ -615,7 +601,7 @@
       "slug": "/catalogo",
       "seo": {
         "title": "Vitrina de Insumos y Accesorios — Racing Cars",
-        "description": "Explora aceites, filtros, bujías y ampolletas de marcas líderes como Bosch, Mannol, Liqui Moly, Fuchs y Shell. Distribuidor oficial EMASA."
+        "description": "Explora aceites, filtros, bujías y ampolletas de marcas líderes como Bosch, Mannol, Liqui Moly, Fuchs y Shell."
       }
     }
   }
