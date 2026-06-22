@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import siteConfig from "@/lib/config";
 import { BrandItem } from "@/types/config";
 
@@ -24,8 +25,22 @@ export default function BrandsGrid() {
 
   const items = brandsSection.items as BrandItem[];
 
+  // Split items for the double marquee on mobile
+  const half = Math.ceil(items.length / 2);
+  const row1Items = items.slice(0, half);
+  const row2Items = items.slice(half);
+
   return (
-    <section id="marcas" className="w-full bg-bg-secondary py-16 lg:py-24 border-b border-border/50">
+    <section id="marcas" className="w-full bg-bg-secondary py-16 lg:py-24 border-b border-border/50 overflow-hidden">
+      {/* SVG Clip Path definition to crop checkered background */}
+      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+        <defs>
+          <clipPath id="hex-clip" clipPathUnits="objectBoundingBox">
+            <path d="M 0.5 0.06 C 0.53 0.06, 0.85 0.25, 0.87 0.28 C 0.89 0.31, 0.89 0.69, 0.87 0.72 C 0.85 0.75, 0.53 0.94, 0.5 0.94 C 0.47 0.94, 0.15 0.75, 0.13 0.72 C 0.11 0.69, 0.11 0.31, 0.13 0.28 C 0.15 0.25, 0.47 0.06, 0.5 0.06 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -40,37 +55,86 @@ export default function BrandsGrid() {
           </h2>
         </div>
 
-        {/* Brands Grid */}
-        <motion.div
-          className="flex flex-wrap justify-center items-center gap-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {items.map((brand, idx) => (
-            <motion.div
-              key={idx}
-              className="border border-border/50 bg-bg-primary/50 p-6 rounded-xl flex flex-col items-center justify-center text-center h-28 hover:border-primary/50 hover:bg-bg-primary hover:shadow-lg transition-all duration-300 relative overflow-hidden group cursor-pointer w-[calc(50%-8px)] sm:w-[170px]"
-              variants={cardVariants}
-              whileHover={{ scale: 1.05 }}
-            >
-              {/* Glossy overlay effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              
-              {/* High-quality typography styled brand name since logo image files are mock/placeholders */}
-              <span className="font-heading font-black text-xl sm:text-2xl tracking-wider text-text-primary group-hover:text-primary transition-colors uppercase italic">
-                {brand.name}
-              </span>
-              
-              {brand.note && (
-                <span className="text-[9px] uppercase font-bold tracking-widest text-text-secondary mt-1.5 opacity-80 group-hover:opacity-100 group-hover:text-text-primary transition-all duration-300">
-                  {brand.note}
-                </span>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Unified View: Responsive Infinite Marquee for all screen sizes */}
+        <div className="flex flex-col gap-6 lg:gap-8 overflow-hidden w-full py-2">
+          {/* Row 1: Left scrolling */}
+          <div className="flex w-max animate-marquee-left hover:[animation-play-state:paused] active:[animation-play-state:paused]">
+            {row1Items.map((brand, idx) => (
+              <div key={`r1-${idx}`} className="w-[100px] md:w-[140px] h-[84px] md:h-[110px] px-2 md:px-3 flex-shrink-0 flex items-center justify-center relative group cursor-pointer">
+                {/* Radial glow background on hover */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,168,36,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                
+                {/* Shadow & Scale Wrapper */}
+                <div className="filter drop-shadow-[0_3px_8px_rgba(0,0,0,0.25)] transition-all duration-300 group-hover:drop-shadow-[0_8px_20px_rgba(232,168,36,0.25)] group-hover:scale-108">
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={110}
+                    height={110}
+                    className="object-contain w-[84px] h-[84px] md:w-[110px] md:h-[110px]"
+                    style={{ clipPath: "url(#hex-clip)" }}
+                    priority={idx < 6}
+                  />
+                </div>
+              </div>
+            ))}
+            {/* Duplicate for seamless scrolling */}
+            {row1Items.map((brand, idx) => (
+              <div key={`r1-dup-${idx}`} className="w-[100px] md:w-[140px] h-[84px] md:h-[110px] px-2 md:px-3 flex-shrink-0 flex items-center justify-center relative group cursor-pointer">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,168,36,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                
+                <div className="filter drop-shadow-[0_3px_8px_rgba(0,0,0,0.25)] transition-all duration-300 group-hover:drop-shadow-[0_8px_20px_rgba(232,168,36,0.25)] group-hover:scale-108">
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={110}
+                    height={110}
+                    className="object-contain w-[84px] h-[84px] md:w-[110px] md:h-[110px]"
+                    style={{ clipPath: "url(#hex-clip)" }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Row 2: Right scrolling */}
+          <div className="flex w-max animate-marquee-right hover:[animation-play-state:paused] active:[animation-play-state:paused]">
+            {row2Items.map((brand, idx) => (
+              <div key={`r2-${idx}`} className="w-[100px] md:w-[140px] h-[84px] md:h-[110px] px-2 md:px-3 flex-shrink-0 flex items-center justify-center relative group cursor-pointer">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,168,36,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                
+                <div className="filter drop-shadow-[0_3px_8px_rgba(0,0,0,0.25)] transition-all duration-300 group-hover:drop-shadow-[0_8px_20px_rgba(232,168,36,0.25)] group-hover:scale-108">
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={110}
+                    height={110}
+                    className="object-contain w-[84px] h-[84px] md:w-[110px] md:h-[110px]"
+                    style={{ clipPath: "url(#hex-clip)" }}
+                  />
+                </div>
+              </div>
+            ))}
+            {/* Duplicate for seamless scrolling */}
+            {row2Items.map((brand, idx) => (
+              <div key={`r2-dup-${idx}`} className="w-[100px] md:w-[140px] h-[84px] md:h-[110px] px-2 md:px-3 flex-shrink-0 flex items-center justify-center relative group cursor-pointer">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,168,36,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                
+                <div className="filter drop-shadow-[0_3px_8px_rgba(0,0,0,0.25)] transition-all duration-300 group-hover:drop-shadow-[0_8px_20px_rgba(232,168,36,0.25)] group-hover:scale-108">
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={110}
+                    height={110}
+                    className="object-contain w-[84px] h-[84px] md:w-[110px] md:h-[110px]"
+                    style={{ clipPath: "url(#hex-clip)" }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

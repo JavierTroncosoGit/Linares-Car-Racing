@@ -181,6 +181,10 @@
           "type": "navbar",
           "links": [
             {
+              "text": "Catálogo",
+              "href": "catalogo"
+            },
+            {
               "text": "Servicios",
               "href": "#servicios"
             },
@@ -455,29 +459,64 @@
           "headline": "Trabajamos con los mejores del mercado",
           "items": [
             {
+              "name": "Liqui Moly",
+              "logo": "/images/marcas/logo-1.png"
+            },
+            {
               "name": "Bosch",
-              "logo": "/assets/brands/bosch.png",
-              "note": "Líder mundial"
+              "logo": "/images/marcas/logo-2.png"
             },
             {
               "name": "Mannol",
-              "logo": "/assets/brands/mannol.png",
-              "note": "Aceites premium"
-            },
-            {
-              "name": "Liqui Moly",
-              "logo": "/assets/brands/liqui-moly.png",
-              "note": "Máxima calidad"
-            },
-            {
-              "name": "Fuchs",
-              "logo": "/assets/brands/fuchs.png",
-              "note": "Tecnología alemana"
+              "logo": "/images/marcas/logo-3.png"
             },
             {
               "name": "Shell Lubricants",
-              "logo": "/assets/brands/shell.png",
-              "note": "Líder global"
+              "logo": "/images/marcas/logo-4.png"
+            },
+            {
+              "name": "Fuchs",
+              "logo": "/images/marcas/logo-5.png"
+            },
+            {
+              "name": "Prestone",
+              "logo": "/images/marcas/logo-6.png"
+            },
+            {
+              "name": "Vonixx",
+              "logo": "/images/marcas/logo-7.png"
+            },
+            {
+              "name": "Castrol",
+              "logo": "/images/marcas/logo-8.png"
+            },
+            {
+              "name": "Vintex",
+              "logo": "/images/marcas/logo-9.png"
+            },
+            {
+              "name": "Mobil",
+              "logo": "/images/marcas/logo-10.png"
+            },
+            {
+              "name": "Sonax",
+              "logo": "/images/marcas/logo-11.png"
+            },
+            {
+              "name": "Zacs",
+              "logo": "/images/marcas/logo-12.png"
+            },
+            {
+              "name": "Würth",
+              "logo": "/images/marcas/logo-13.png"
+            },
+            {
+              "name": "Osram",
+              "logo": "/images/marcas/logo-14.png"
+            },
+            {
+              "name": "Senfineco",
+              "logo": "/images/marcas/logo-15.png"
             }
           ]
         },

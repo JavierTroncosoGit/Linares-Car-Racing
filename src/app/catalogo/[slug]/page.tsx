@@ -8,7 +8,7 @@ import siteConfig from "@/lib/config";
 import ProductActionsClient from "@/components/store/ProductActionsClient";
 import ProductImageClient from "@/components/store/ProductImageClient";
 import ProductTabs from "@/components/store/ProductTabs";
-import { Star, StarHalf, AlertTriangle } from "lucide-react";
+import { Star, AlertTriangle } from "lucide-react";
 
 // Use revalidate seconds from configuration
 export const revalidate = 3600;
@@ -126,13 +126,20 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     const isHalf = product.rating! % 1 !== 0 && starValue === Math.ceil(product.rating!);
                     const isFull = starValue <= Math.floor(product.rating!);
                     return (
-                      <span key={i} className="text-primary">
+                      <span key={i} className="flex items-center">
                         {isFull ? (
-                          <Star className="w-4 h-4 fill-primary" />
+                          <Star className="w-4 h-4 fill-primary text-primary" />
                         ) : isHalf ? (
-                          <StarHalf className="w-4 h-4 fill-primary" />
+                          <span className="relative inline-flex items-center justify-center">
+                            {/* Empty background star */}
+                            <Star className="w-4 h-4 text-neutral-600 fill-neutral-800/40" />
+                            {/* Half filled star overlay */}
+                            <span className="absolute top-0 left-0 w-1/2 h-full overflow-hidden pointer-events-none">
+                              <Star className="w-4 h-4 fill-primary text-primary max-w-none" />
+                            </span>
+                          </span>
                         ) : (
-                          <Star className="w-4 h-4 text-border" />
+                          <Star className="w-4 h-4 text-neutral-600 fill-neutral-800/40" />
                         )}
                       </span>
                     );

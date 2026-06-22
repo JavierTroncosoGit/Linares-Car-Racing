@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, FileText, StarHalf, MessageSquare } from "lucide-react";
+import { Star, FileText, MessageSquare } from "lucide-react";
 import { Product } from "@/types/product";
 
 interface ProductTabsProps {
@@ -54,11 +54,18 @@ export default function ProductTabs({ product }: ProductTabsProps) {
         );
       } else if (i === fullStars + 1 && hasHalfStar) {
         stars.push(
-          <StarHalf key={i} className="w-4 h-4 fill-primary text-primary" />
+          <span key={i} className="relative inline-flex items-center justify-center">
+            {/* Empty background star */}
+            <Star className="w-4 h-4 text-neutral-600 fill-neutral-800/40" />
+            {/* Half filled star overlay */}
+            <span className="absolute top-0 left-0 w-1/2 h-full overflow-hidden pointer-events-none">
+              <Star className="w-4 h-4 fill-primary text-primary max-w-none" />
+            </span>
+          </span>
         );
       } else {
         stars.push(
-          <Star key={i} className="w-4 h-4 text-border" />
+          <Star key={i} className="w-4 h-4 text-neutral-600 fill-neutral-800/40" />
         );
       }
     }
