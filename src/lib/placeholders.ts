@@ -22,8 +22,8 @@ export const PLACEHOLDERS: Record<string, ImagePlaceholder> = {
     alt: 'Logo oficial de Racing Cars — Lubricentro y Accesorios'
   },
   favicon: {
-    src: '/assets/LOGO CIRCULAR-80.png',
-    fallback: '/assets/LOGO CIRCULAR-80.png',
+    src: '/assets/logo-circular-80.png',
+    fallback: '/assets/logo-circular-80.png',
     width: 80,
     height: 80,
     alt: 'Favicon Racing Cars'
