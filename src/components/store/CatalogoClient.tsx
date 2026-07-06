@@ -46,7 +46,7 @@ export default function CatalogoClient({ products, brands }: CatalogoClientProps
 
   const handleBrandChange = (brandId: string | null) => {
     setSelectedBrandId(brandId);
-    
+
     const params = new URLSearchParams(searchParams.toString());
     if (brandId) {
       const brand = brands.find((b) => b.id === brandId);
@@ -56,7 +56,7 @@ export default function CatalogoClient({ products, brands }: CatalogoClientProps
     } else {
       params.delete("brand");
     }
-    
+
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
@@ -118,11 +118,10 @@ export default function CatalogoClient({ products, brands }: CatalogoClientProps
             <li>
               <button
                 onClick={() => handleBrandChange(null)}
-                className={`w-full text-left py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
-                  selectedBrandId === null
+                className={`w-full text-left py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer ${selectedBrandId === null
                     ? "font-bold text-primary bg-primary/10 border border-primary/20"
                     : "text-text-secondary hover:text-text-primary hover:bg-border/20 border border-transparent"
-                }`}
+                  }`}
               >
                 Todas ({products.length})
               </button>
@@ -131,16 +130,14 @@ export default function CatalogoClient({ products, brands }: CatalogoClientProps
               <li key={brand.id}>
                 <button
                   onClick={() => handleBrandChange(brand.id)}
-                  className={`w-full text-left py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer flex justify-between items-center ${
-                    selectedBrandId === brand.id
+                  className={`w-full text-left py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer flex justify-between items-center ${selectedBrandId === brand.id
                       ? "font-bold text-primary bg-primary/10 border border-primary/20"
                       : "text-text-secondary hover:text-text-primary hover:bg-border/20 border border-transparent"
-                  }`}
+                    }`}
                 >
                   <span className="truncate pr-2">{brand.name}</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                    selectedBrandId === brand.id ? "bg-primary/20 text-primary" : "bg-bg-primary text-text-secondary"
-                  }`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${selectedBrandId === brand.id ? "bg-primary/20 text-primary" : "bg-bg-primary text-text-secondary"
+                    }`}>
                     {brand.count}
                   </span>
                 </button>
@@ -156,7 +153,7 @@ export default function CatalogoClient({ products, brands }: CatalogoClientProps
         <div className="relative group w-full">
           <input
             type="text"
-            placeholder="Buscar por nombre, marca o SKU..."
+            placeholder="Buscar por nombre o marca"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-bg-secondary border border-border p-3.5 pl-11 pr-16 rounded-xl text-text-primary placeholder:text-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300 shadow-sm text-base"
