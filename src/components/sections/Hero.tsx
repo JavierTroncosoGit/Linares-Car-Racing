@@ -22,6 +22,7 @@ export default function Hero() {
           src={bgImageSrc}
           alt="Racing Cars Hero Background"
           fill
+          sizes="100vw"
           priority
           className="hidden md:block object-cover opacity-85 scale-105 contrast-[1.05] brightness-100"
         />
@@ -30,6 +31,7 @@ export default function Hero() {
           src={bgMobileImageSrc}
           alt="Racing Cars Hero Background Mobile"
           fill
+          sizes="100vw"
           priority
           className="block md:hidden object-cover opacity-85 scale-100 contrast-[1.05] brightness-100"
         />
@@ -50,7 +52,7 @@ export default function Hero() {
           {heroSection.headline}
         </motion.h1>
 
-        {/* Subheadline */}
+        {/* Subheadline (Punctuation Normalized: no trailing dot to keep layout clean) */}
         {heroSection.subheadline && (
           <motion.p
             className="mt-6 text-lg sm:text-xl text-text-secondary max-w-2xl font-light"
@@ -58,14 +60,31 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {heroSection.subheadline}
+            {heroSection.subheadline.trim().endsWith(".") 
+              ? heroSection.subheadline.trim().slice(0, -1) 
+              : heroSection.subheadline}
           </motion.p>
         )}
 
-        {/* CTAs */}
+        {/* Experience & Multibrand Badges (High Contrast, Centered, with Brand Icons) */}
+        <motion.div
+          className="mt-8 flex flex-wrap justify-center gap-3.5"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <div className="px-5 py-2.5 bg-bg-secondary/90 border border-border/80 rounded-full text-xs sm:text-sm font-bold text-text-primary tracking-wider uppercase backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/30">
+            <span>25 años de experiencia</span>
+          </div>
+          <div className="px-5 py-2.5 bg-bg-secondary/90 border border-border/80 rounded-full text-xs sm:text-sm font-bold text-text-primary tracking-wider uppercase backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/30">
+            <span>Trabajamos con multimarcas</span>
+          </div>
+        </motion.div>
+
+        {/* CTAs (Perfectly Aligned horizontally and vertically) */}
         {heroSection.ctas && (
           <motion.div
-            className="mt-10 flex flex-wrap justify-center gap-4"
+            className="mt-10 flex flex-wrap justify-center items-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -76,7 +95,7 @@ export default function Hero() {
                 <Link
                   key={i}
                   href={cta.href}
-                  className={`px-8 py-4 text-base font-bold rounded-md font-heading tracking-wider transition-all duration-300 shadow-lg cursor-pointer flex items-center gap-2 ${isPrimary
+                  className={`px-8 text-base font-bold rounded-md font-heading tracking-wider transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2 h-[54px] min-w-[190px] ${isPrimary
                     ? "bg-primary text-bg-primary hover:bg-primary-dark hover:shadow-primary/20 hover:-translate-y-0.5"
                     : "bg-bg-secondary border border-border text-text-primary hover:bg-border/20 hover:-translate-y-0.5"
                     }`}

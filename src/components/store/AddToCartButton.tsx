@@ -9,9 +9,10 @@ interface AddToCartButtonProps {
   product: Product;
   quantity?: number;
   className?: string;
+  iconOnly?: boolean;
 }
 
-export default function AddToCartButton({ product, quantity = 1, className }: AddToCartButtonProps) {
+export default function AddToCartButton({ product, quantity = 1, className, iconOnly }: AddToCartButtonProps) {
   const addItem = useCartStore((state) => state.addItem);
   const addToast = useToastStore((state) => state.addToast);
   const items = useCartStore((state) => state.items);
@@ -44,7 +45,13 @@ export default function AddToCartButton({ product, quantity = 1, className }: Ad
           : "bg-primary text-bg-primary hover:bg-primary-dark shadow hover:shadow-primary/20"
       } ${className || ""}`}
     >
-      {added ? (
+      {iconOnly ? (
+        added ? (
+          <Check className="w-5 h-5 stroke-[2.5]" />
+        ) : (
+          <ShoppingCart className="w-5 h-5 stroke-[2.5]" />
+        )
+      ) : added ? (
         <>
           <Check className="w-3.5 h-3.5" />
           ¡AGREGADO!
