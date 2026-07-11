@@ -164,7 +164,7 @@
       "enabled": true,
       "orderMethod": "both",
       "whatsappOrderNumber": "56949340772",
-      "whatsappOrderMessage": "Hola Racing Cars, quiero realizar el siguiente pedido:\n\n{orderDetails}\n\nTotal estimado: {total}\n\nMis datos:\nNombre: \nVehículo/Año: ",
+      "whatsappOrderMessage": "Hola Racing Cars, quiero realizar el siguiente pedido:\n\n{orderDetails}\n\nTotal estimado: {total}",
       "formDestinationEmail": "linaresracingcars@gmail.com"
     },
     "shipping": {

@@ -83,6 +83,12 @@ export default function VehicleBrandsGrid() {
   const row1Brands = vehicleBrandsList.slice(0, half);
   const row2Brands = vehicleBrandsList.slice(half);
 
+  // Speed is 126.72 px/s on desktop (3168px / 25s)
+  // Vehicle brands have width of 160px + 16px gap = 176px on desktop
+  const speedPxPerSec = 126.72;
+  const row1Duration = (row1Brands.length * 176) / speedPxPerSec;
+  const row2Duration = (row2Brands.length * 176) / speedPxPerSec;
+
   return (
     <section id="marcas-vehiculos" className="w-full bg-bg-primary py-16 lg:py-20 border-b border-border/40 overflow-hidden">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
@@ -104,7 +110,10 @@ export default function VehicleBrandsGrid() {
         <div className="flex flex-col gap-4 overflow-hidden w-full py-1">
           
           {/* Row 1: Moving Left */}
-          <div className="flex w-max gap-4 animate-marquee-left hover:[animation-play-state:paused] active:[animation-play-state:paused]">
+          <div 
+            className="flex w-max gap-4 animate-marquee-left hover:[animation-play-state:paused] active:[animation-play-state:paused]"
+            style={{ animationDuration: `${row1Duration}s` }}
+          >
             {row1Brands.map((brand) => (
               <BrandCard key={`r1-${brand.name}`} brand={brand} />
             ))}
@@ -115,7 +124,10 @@ export default function VehicleBrandsGrid() {
           </div>
 
           {/* Row 2: Moving Right */}
-          <div className="flex w-max gap-4 animate-marquee-right hover:[animation-play-state:paused] active:[animation-play-state:paused]">
+          <div 
+            className="flex w-max gap-4 animate-marquee-right hover:[animation-play-state:paused] active:[animation-play-state:paused]"
+            style={{ animationDuration: `${row2Duration}s` }}
+          >
             {row2Brands.map((brand) => (
               <BrandCard key={`r2-${brand.name}`} brand={brand} />
             ))}

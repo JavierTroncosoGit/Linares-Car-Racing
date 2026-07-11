@@ -42,12 +42,27 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+        {/* Experience & Multibrand Badges (High Contrast, Centered, with Brand Icons) */}
+        <motion.div
+          className="mb-6 flex flex-wrap justify-center gap-3.5"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div className="px-5 py-2.5 bg-bg-secondary/90 border border-border/80 rounded-full text-xs sm:text-sm font-bold text-text-primary tracking-wider uppercase backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/30">
+            <span>25 años de experiencia</span>
+          </div>
+          <div className="px-5 py-2.5 bg-bg-secondary/90 border border-border/80 rounded-full text-xs sm:text-sm font-bold text-text-primary tracking-wider uppercase backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/30">
+            <span>Trabajamos con multimarcas</span>
+          </div>
+        </motion.div>
+
         {/* Headline */}
         <motion.h1
           className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-heading leading-tight max-w-4xl uppercase"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
           {heroSection.headline}
         </motion.h1>
@@ -65,21 +80,6 @@ export default function Hero() {
               : heroSection.subheadline}
           </motion.p>
         )}
-
-        {/* Experience & Multibrand Badges (High Contrast, Centered, with Brand Icons) */}
-        <motion.div
-          className="mt-8 flex flex-wrap justify-center gap-3.5"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <div className="px-5 py-2.5 bg-bg-secondary/90 border border-border/80 rounded-full text-xs sm:text-sm font-bold text-text-primary tracking-wider uppercase backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/30">
-            <span>25 años de experiencia</span>
-          </div>
-          <div className="px-5 py-2.5 bg-bg-secondary/90 border border-border/80 rounded-full text-xs sm:text-sm font-bold text-text-primary tracking-wider uppercase backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/30">
-            <span>Trabajamos con multimarcas</span>
-          </div>
-        </motion.div>
 
         {/* CTAs (Perfectly Aligned horizontally and vertically) */}
         {heroSection.ctas && (

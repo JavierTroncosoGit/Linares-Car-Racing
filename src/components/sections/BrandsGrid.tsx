@@ -30,6 +30,12 @@ export default function BrandsGrid() {
   const row1Items = items.slice(0, half);
   const row2Items = items.slice(half);
 
+  // Speed of VehicleBrandsGrid is 126.72 px/s on desktop (3168px / 25s)
+  // Product brands have width of 140px on desktop
+  const speedPxPerSec = 126.72;
+  const row1Duration = (row1Items.length * 140) / speedPxPerSec;
+  const row2Duration = (row2Items.length * 140) / speedPxPerSec;
+
   return (
     <section id="marcas" className="w-full bg-bg-secondary py-16 lg:py-24 border-b border-border/50 overflow-hidden">
       {/* SVG Clip Path definition to crop checkered background */}
@@ -58,7 +64,10 @@ export default function BrandsGrid() {
         {/* Unified View: Responsive Infinite Marquee for all screen sizes */}
         <div className="flex flex-col gap-6 lg:gap-8 overflow-hidden w-full py-2">
           {/* Row 1: Left scrolling */}
-          <div className="flex w-max animate-marquee-left hover:[animation-play-state:paused] active:[animation-play-state:paused]">
+          <div 
+            className="flex w-max animate-marquee-left hover:[animation-play-state:paused] active:[animation-play-state:paused]"
+            style={{ animationDuration: `${row1Duration}s` }}
+          >
             {row1Items.map((brand, idx) => (
               <div key={`r1-${idx}`} className="w-[100px] md:w-[140px] h-[84px] md:h-[110px] px-2 md:px-3 flex-shrink-0 flex items-center justify-center relative group cursor-pointer">
                 {/* Radial glow background on hover */}
@@ -98,7 +107,10 @@ export default function BrandsGrid() {
           </div>
 
           {/* Row 2: Right scrolling */}
-          <div className="flex w-max animate-marquee-right hover:[animation-play-state:paused] active:[animation-play-state:paused]">
+          <div 
+            className="flex w-max animate-marquee-right hover:[animation-play-state:paused] active:[animation-play-state:paused]"
+            style={{ animationDuration: `${row2Duration}s` }}
+          >
             {row2Items.map((brand, idx) => (
               <div key={`r2-${idx}`} className="w-[100px] md:w-[140px] h-[84px] md:h-[110px] px-2 md:px-3 flex-shrink-0 flex items-center justify-center relative group cursor-pointer">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,168,36,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

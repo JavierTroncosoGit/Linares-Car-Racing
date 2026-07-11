@@ -47,9 +47,9 @@ export default function AddToCartButton({ product, quantity = 1, className, icon
     >
       {iconOnly ? (
         added ? (
-          <Check className="w-5 h-5 stroke-[2.5]" />
+          <Check className="w-[26px] h-[26px] stroke-[2.5]" />
         ) : (
-          <ShoppingCart className="w-5 h-5 stroke-[2.5]" />
+          <ShoppingCart className="w-[26px] h-[26px] stroke-[2.5]" />
         )
       ) : added ? (
         <>
