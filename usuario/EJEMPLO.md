@@ -104,7 +104,7 @@
 
 ### Contacto
 - WhatsApp #1: +56 9 4934 0772
-- WhatsApp #2: +56 9 6701 4233
+- WhatsApp #2: +56 9 4934 0772
 - Email: linaresracingcars@gmail.com
 - Instagram: https://www.instagram.com/linaresracingcars
 

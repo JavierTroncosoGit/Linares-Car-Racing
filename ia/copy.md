@@ -90,6 +90,6 @@
 
 ## Footer
 - **Dirección**: Av. Presidente Ibáñez #630, Linares, Región del Maule, Chile
-- **Teléfonos**: +56 9 4934 0772 | +56 9 6701 4233
+- **Teléfonos**: +56 9 4934 0772
 - **Horario**: Lunes a Viernes 09:00 - 18:00 | Sábado 10:00 - 14:00
 - **Copyright**: © 2026 Racing Cars — Lubricentro y Accesorios. Todos los derechos reservados.
